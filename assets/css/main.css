@@ -2831,6 +2831,7 @@ input, select, textarea, input[type="date"] {
 		width: 100%;
 		position: fixed;
 		background-color: #333333;
+		z-index: 1000;
 	}
 
 		#header .logo {
