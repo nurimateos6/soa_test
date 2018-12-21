@@ -5,7 +5,7 @@ return array (
   'bd.servidor' => 'localhost',
   'bd.usuario' => 'root',
   'bd.clave' => '',
-  'bd.nombre' => 'soa_db',
+  'bd.nombre' => 'test',
   'bd.charset' => 'utf8',
   'bd.depurar' => false,
   'pagina.lineas' => 10,

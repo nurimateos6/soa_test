@@ -30,7 +30,7 @@ class basedatos
       $svr= config::get( 'bd.servidor', 'localhost');
       $usr= config::get( 'bd.usuario', 'root');
       $pwd= config::get( 'bd.clave', '');
-      $dbn= config::get( 'bd.nombre', '');
+      $dbn= config::get( 'bd.nombre', 'test');
       self::$depurar= config::get( 'bd.depurar', false);
       self::$conexion= new mysqli( $svr, $usr, $pwd, $dbn);
       if (!mysqli_connect_error()) {
@@ -127,7 +127,9 @@ class basedatos
   public static function contar( $sql)
   {
     $res= false;
-    $result= self::ejecutarSQL( 'SELECT COUNT(*) AS total FROM '.$sql.' AS q');
+  // $result= self::ejecutarSQL( 'SELECT COUNT(*) AS total FROM '.$sql.' AS q');
+    $new='SELECT COUNT(*) AS total FROM ('.$sql.') As q';
+   $result= self::ejecutarSQL($new);
     if ($result !== false) {
       $res= $result->fetch_assoc();
       $result->close();

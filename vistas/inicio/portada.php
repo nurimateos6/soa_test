@@ -2,30 +2,18 @@
 	<div class="inner">
 		<h1>Tu test</h1>
 		<section>
-			<h2>Intalación mediante PIP para MAC OSX</h2>
-			<p>Ejecutar el siguiente código en la Terminal</p>
+			<h2>Portada de la página</h2>
+			<p>Ejemplo de código en terminal:</p>
 			<pre><code class="console">
-promt$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-promt$ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-promt$ brew update
-promt$ brew install python  # Python 3
-promt$ sudo pip3 install -U virtualenv  # system-wide install
-promt$ pip3 install --user --upgrade tensorflow  # instalar en directorio $HOME
+promt$ ls
+Carpeta1    Carpeta2    Carpeta3
+promt$
 			</code></pre>
-			<h2>Instalar dependencias PIP</h2>
-			<pre><code class="console">
-promt$ pip install -U --user pip six numpy wheel mock
-promt$ pip install -U --user keras_applications==1.0.5 --no-deps
-promt$ pip install -U --user keras_preprocessing==1.0.3 --no-deps
-			</code></pre>
-			<h2>Iniciar Tensorboard</h2>
-			<pre><code class="console">
-promt$ tensorboard --logdir=./logs
-			</code></pre>
-
 		</section>
-
-	<pre><code class="javascript">
+    <section>
+      <h2>Portada de la página</h2>
+      <p>Ejemplo de código java:</p>
+	     <pre><code class="javascript">
 function $initHighlight(block, cls) {
   try {
     if (cls.search(/\bno\-highlight\b/) != -1)
@@ -42,7 +30,10 @@ function $initHighlight(block, cls) {
 
 export  $initHighlight;
 		
-}</code></pre>
+}       </code></pre>
+
+      <h2>Portada de la página</h2>
+      <p>Ejemplo de código json:</p>
 <pre><code class="json" >{
   "name": "John",
   "age": 30,

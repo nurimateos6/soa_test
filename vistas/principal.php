@@ -1,12 +1,15 @@
 <html lang="es">
 	<head>
-		<title>PRÁCTICA MAPS</title>
+		<title>Test SOA</title>
 		<meta charset="utf-8" />
 		<meta charset="utf-8" />
+		<link rel="mask-icon" href="images/ico_p.svg" color="#293dff">
+		<link rel="icon" href="images/ico.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
+
 		<!-- HIGHLIGHT.JS -->
 		<!-- <link rel="stylesheet" href="assets/highlight/magula.css"> -->
 		<link rel="stylesheet" href="assets/highlight/monokai-sublime.css">
@@ -31,7 +34,6 @@
 			<!-- HEADER -->
 			<header id="header">
 					<!-- Logo -->
-
 						<div>
 							<a  href="?a=inicio" class="logo">
 							<span class="symbol"><img src="images/diana.svg" alt="" /></span>
@@ -46,19 +48,17 @@
 	</nav>
 </div>
 	</header>
-			<?php vista::generarPieza('menu_lateral');s?>
+			<?php vista::generarPieza('menu_lateral');?>
 
 		<?php echo $contenido; ?>
 
 				<?php basedatos::conectar();
 
-				$hola=basedatos::obtenerUno('SELECT * FROM usuarios');
-				var_dump($hola);
+				// $hola=basedatos::obtenerUno('SELECT * FROM usuarios');
 				?>
 
 
 
-								<code>#include &ltstdio.h&gt</code>
 
 		<!-- PIE DE PÁGINA -->
 		<footer id="footer" style="margin-top: 0px">
@@ -115,5 +115,7 @@
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/1C.min.js"></script> -->
 
 </html>
+
+
 
 

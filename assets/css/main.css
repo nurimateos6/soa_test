@@ -1,11 +1,11 @@
 @import url(font-awesome.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
-@font-face {
+/*@font-face {
   font-family: 'SansForgetica';
   src: local('Sans Forgetica'), url('../fonts/SansForgetica.woff');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 /*
 	Phantom by HTML5 UP
 	html5up.net | @ajlkn
@@ -179,9 +179,6 @@ input, select, textarea, input[type="date"] {
 		line-height: 1.3;
 		margin: 0 0 1em 0;
 		letter-spacing: -0.035em;
-						font-family: 'SansForgetica',normal;
-						font-style: italic;
-
 	}
 
 		h1 a {
@@ -2307,6 +2304,16 @@ input, select, textarea, input[type="date"] {
 		}
 
 /* Image */
+	.user h2{
+		float: left;
+		width: 30%;
+	}
+	.user img{
+		float: left;
+		padding: 0;
+		width: 30%;
+		margin-right: 4px;
+	}
 
 	.image {
 		border-radius: 4px;
@@ -2315,7 +2322,7 @@ input, select, textarea, input[type="date"] {
 		position: relative;
 	}
 
-		.image img {
+		.user img {
 			border-radius: 4px;
 			display: block;
 		}
@@ -2558,6 +2565,36 @@ input, select, textarea, input[type="date"] {
 			pointer-events: none;
 			opacity: 0.25;
 		}
+		/* BOTONONES VER EDITAR ELIMINAR O BOTONONES CON IMAGEN */
+		#boton{
+			border-style: none !important;
+
+		}
+		.boton:hover{
+			text-decoration: none;
+			-webkit-filter: brightness(55%) sepia(100%) saturate(500%) hue-rotate(170deg) ;
+			filter: brightness(55%) sepia(100%) saturate(500%) hue-rotate(170deg);
+		}
+		.boton{
+			height: 1em !important;
+			width: 1em !important;
+		}
+		div[class="acciones"] > div{
+			display: inline-block;
+			width: 1em ;
+		}
+		
+		div[class="pagina"] > a{
+			color:white;
+			font-weight: bold;
+			font-size: 1.5em;
+			border: none !important;
+			margin-left: 1em;
+		}
+		#actual{
+			color:#444444;
+		}
+
 
 /* Tiles */
 
@@ -2827,9 +2864,8 @@ input, select, textarea, input[type="date"] {
 /* Header */
 
 	#header {
-		padding: 0em 0 0.1em 0 ;
+		padding: 0em 0 0em 2em ;
 		width: 100%;
-		position: fixed;
 		background-color: #333333;
 		z-index: 1000;
 	}
@@ -2841,13 +2877,11 @@ input, select, textarea, input[type="date"] {
 			color: inherit;
 			font-weight: 900;
 			letter-spacing: 0.35em;
-			margin: 1em 1em 1em 1em;
+			margin: 1em;
 			text-decoration: none;
 			text-transform: uppercase;
 			display: inline-block;
 			z-index: 0;
-				font-family: 'SansForgetica';
-				font-style: italic;
 
 		}
 
@@ -2858,7 +2892,7 @@ input, select, textarea, input[type="date"] {
 			}
 
 			#header .logo .symbol {
-				margin-right: 0.65em;
+				margin-right: 0.6em;
 				
 				fill:blue;
 
@@ -2866,7 +2900,7 @@ input, select, textarea, input[type="date"] {
 
 				#header .logo .symbol img {
 					display: block;
-					width: 10em;
+					width: 2em;
 					height: 2em;
 
 				}
@@ -2900,10 +2934,9 @@ input, select, textarea, input[type="date"] {
 					#header nav ul li a {
 						display: block;
 						position: relative;
-						height: 1.5em;
-						/*width: 1em !important;*/
+						height: 3em;
 						line-height: 3em;
-						padding: 0;
+						padding: 0 1.5em;
 						background-color: rgba(255, 255, 255, 0.5);
 						border-radius: 4px;
 						border: 0;
@@ -2939,25 +2972,16 @@ input, select, textarea, input[type="date"] {
 							height: 100%;
 							background-position: center;
 							background-repeat: no-repeat;
-							background-size: 100%;
+							background-size: 2em 2em;
 						}
 
 						#header nav ul li a[href="#menu"]:before {
-							background-color: #00aaff;
-							mask: url("img/menu.svg") 
-							no-repeat 10% 10%;
-  						-webkit-mask-size: cover;
-  						mask-size: cover;
-  						fill:blue;
+							background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 8px%3B stroke: %2300aaff%3B %7D%3C/style%3E%3Cline x1='0' y1='25' x2='100' y2='25' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' /%3E%3Cline x1='0' y1='75' x2='100' y2='75' /%3E%3C/svg%3E");
 							opacity: 0;
 						}
 
 						#header nav ul li a[href="#menu"]:after {
-							background-color: white;
-							mask: url("img/menu.svg") 
-							no-repeat 10% 10%;
-  						-webkit-mask-size: cover;
-  						mask-size: cover;
+							background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 8px%3B stroke: %23ffffff%3B %7D%3C/style%3E%3Cline x1='0' y1='25' x2='100' y2='25' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' /%3E%3Cline x1='0' y1='75' x2='100' y2='75' /%3E%3C/svg%3E");
 							opacity: 1;
 						}
 						#uno{
@@ -2974,7 +2998,7 @@ input, select, textarea, input[type="date"] {
 		@media screen and (max-width: 736px) {
 
 			#header {
-				padding: 4em 0 0.1em 0 ;
+				padding: 0 0 0 0.5em;
 			}
 
 				#header nav {
@@ -3015,7 +3039,6 @@ input, select, textarea, input[type="date"] {
 		height: 100%;
 		-webkit-overflow-scrolling: touch;
 		background: #585858;
-		background-color: rgb(39,40,34);
 		color: #ffffff;
 		cursor: default;
 		visibility: hidden;
@@ -3105,25 +3128,12 @@ input, select, textarea, input[type="date"] {
 			}
 
 			#menu > .close:before {
-				/*background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 8px%3B stroke: %2300aaff%3B %7D%3C/style%3E%3Cline x1='15' y1='15' x2='85' y2='85' /%3E%3Cline x1='85' y1='15' x2='15' y2='85' /%3E%3C/svg%3E");*/
-				/*background-image: url("img/cross-close.svg");*/
-				background-color: #00aaff;
-				mask: url("img/cross-close.svg") 
-				no-repeat 10% 10%;
-				-webkit-mask-size: 50% 100%;
-				mask-size:  50% 100%;
+				background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 8px%3B stroke: %2300aaff%3B %7D%3C/style%3E%3Cline x1='15' y1='15' x2='85' y2='85' /%3E%3Cline x1='85' y1='15' x2='15' y2='85' /%3E%3C/svg%3E");
 				opacity: 0;
 			}
 
 			#menu > .close:after {
-				/*background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 8px%3B stroke: %23585858%3B %7D%3C/style%3E%3Cline x1='15' y1='15' x2='85' y2='85' /%3E%3Cline x1='85' y1='15' x2='15' y2='85' /%3E%3C/svg%3E");*/
-				/*background-image: url("img/cross-close.svg");*/
-				background-color: white;
-				mask: url("img/cross-close.svg") 
-				no-repeat 10% 10%;
-				-webkit-mask-size: 50% 100%;
-				mask-size:  50% 100%;
-
+				background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 8px%3B stroke: %23ffffff%3B %7D%3C/style%3E%3Cline x1='15' y1='15' x2='85' y2='85' /%3E%3Cline x1='85' y1='15' x2='15' y2='85' /%3E%3C/svg%3E");
 				opacity: 1;
 			}
 
@@ -3197,7 +3207,7 @@ input, select, textarea, input[type="date"] {
 		@media screen and (max-width: 736px) {
 
 			#main {
-				padding: 0em 0 4em 0 ;
+				padding: 1em 0 4em 0 ;
 			}
 
 		}
@@ -3360,6 +3370,20 @@ input, select, textarea, input[type="date"] {
 		box-sizing: border-box;
 		padding: 0 2.5em 0 0;
 	}
+.wrapper.user{
+	padding: 0 ;
+	box-sizing: border-box;
+	display: inline-block;
+}
+.wrapper.user p{
+	margin: 0;
+	display: inline-block;
+	line-height: 1.5;
+	box-sizing: border-box;
+	vertical-align: middle !important;
+	text-align: left; 
+}
+
 	#wrapper > * > .inner {
 		width: 100%;
 		max-width: 68em;

@@ -256,8 +256,9 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 													<option value="1">Human Resources</option>
 												</select>
 											</div>
+
 											<div class="col-4 col-12-small">
-												<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+												<input type="radio" id="demo-priority-low" name="demo-priority">
 												<label for="demo-priority-low">Low</label>
 											</div>
 											<div class="col-4 col-12-small">
@@ -268,6 +269,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 												<input type="radio" id="demo-priority-high" name="demo-priority">
 												<label for="demo-priority-high">High</label>
 											</div>
+
 											<div class="col-6 col-12-small">
 												<input type="checkbox" id="demo-copy" name="demo-copy">
 												<label for="demo-copy">Email me a copy</label>
@@ -314,3 +316,10 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 						</div>
 					</div>
+<script type="text/javascript">
+			$('input[type=radio]').click(function(){
+    if (this.previous) {
+        this.checked = false;
+    }
+    this.previous = this.checked;
+});</script>

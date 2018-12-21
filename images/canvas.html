@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>SPRITE</title>
+	<noscript><!-- COMPRUEBA QUE JavaScript ESTÁ ACTIVADO -->
+<h1>ACTIVA JavaScript PARA QUE FUNCIONE</h1>
+   <style>div { display:none; }</style>
+  <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript. 
+	Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.</p>
+</noscript>
+</head>
+<body>
+	<canvas style="width: 5em; border:1px solid red" id="canvas"></canvas>
+	<script type="text/javascript">
+		var canWidth = 32;
+		var canHeight = 53;
+
+		var x = 0;
+		var y = 0;
+
+		var srcX;
+		var srcY;
+
+		var sheetWidth = 192;
+		var sheetHeight = 46;
+
+		var cols = 6;
+		var rows = 1;
+
+		var width = sheetWidth / cols;
+		var height = sheetHeight / rows;
+
+		var currentFrame = 0;
+
+		var character = new Image();
+		character.src = "nude.png";
+		
+		var canvas = document.getElementById('canvas');
+		canvas.width = canWidth;
+		canvas.height = canHeight;
+		
+		var ctx = canvas.getContext('2d');
+
+		function updateFrame(){
+			currentFrame = ++currentFrame % cols;
+			srcX = currentFrame * width;
+			srcY = 0;
+
+			ctx.clearRect(x,y,width,height);
+		}
+
+		function drawImage(){
+			updateFrame();
+			ctx.drawImage(character,srcX,srcY,width,height,x,y,width,height);
+		}
+
+		setInterval(function(){
+			drawImage();
+
+		},110);
+
+	</script>
+</body>
+</html>
