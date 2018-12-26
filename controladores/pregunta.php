@@ -1,49 +1,35 @@
 <?php
-modelo::usar( 'alumno');
 modelo::usar( 'pregunta');
-
-class controlador_test extends controlador
+class controlador_pregunta extends controlador
 {
-  public $accion_defecto= 'test';
-
-  public $preguntas = null;		//Array de objetos pregunta.
-  public $alumno = null;			//Instancia del modelo alumno.
+  public $accion_defecto= 'admin';
   
   //-------------------------------------------------------------------------
-  public function accion_test()
+  public function accion_admin()
   {
-    // Alumno que realiza el test
-    $this->alumno = new alumno;
-    //depurar($this->alumno);    // Objeto alumno que realizará el test
-    $alumno = new alumno;
-    // Array de preguntas del test.
-    $this->preguntas = array();
-    $pregunta = new pregunta;
+    //----------
+    //Extraer Datos para ejecucion con la pagina que se está viendo.
+    $pagina= (isset($_GET['p']) ? (int)$_GET['p'] : 0);
+    if ($pagina < 1) $pagina= 1;//se empieza en la primera pagina como mucho.
+    $lineas= config::get('pagina.lineas', 10);
+    //$lineas= 5;//Probar con menos lineas
+    if ($lineas < 1) $lineas= 1;//como minimo se obtiene 1 elemento por pagina.
+    //----------
+    //Ejecutar accion
+    $sql= pregunta::sqlListar('asignatura');
 
-    
+    $total= basedatos::contar( $sql);
+    $registros= basedatos::obtenerTodos( $sql, $pagina-1, $lineas);
+    //----------
 
-
-    vista::generarPagina( 'test', array( 'dato'=>'un dato'));
-  }//accion_test
-
-  //-------------------------------------------------------------------------
-  //Cargar el alumno logueado.
-  public function cargarAlumno()
-  {
-    //Si el cliente no esta cargado, o si lo esta, hay referencia en el pedido
-    //y las referencias no coinciden entre si, se intenta cargar.
-    if (($this->alumno === null) || 
-          (($this->alumno !== null) && !empty($this->refCli) 
-              && ($this->alumno->id != $this->refCli))) {
-      //Crear la instancia nueva y cargarla, y si falla, dejarla nula.
-      $this->alumno= new alumno;
-      if (!$this->alumno->cargar( $this->refCli)) $this->alumno= null;
-    }//if
-    return ($this->alumno !== null);
-  }//cargarCliente
-  
-  //-------------------------------------------------------------------------
-
+    //Dar una respuesta
+    vista::generarPagina( 'admin', array( 
+      'pagina'=>$pagina,
+      'lineas'=>$lineas,
+      'total'=>$total,
+      'registros'=>$registros,
+    ));
+  }//accion_admin
   
   //-------------------------------------------------------------------------
   //Accion para CREAR un pregunta
@@ -209,20 +195,21 @@ class controlador_test extends controlador
   /*-----*/
   public function accion_creardemo()
   {
-    $bien= false;
     $modelo= new pregunta;
-    //----------
-    //Simular la creacion de varios preguntas...
-    //INSERT INTO `preguntas`
-    // (`referencia`, `cifnif`, `nombre`, `apellidos`, `domFiscal`, `domEnvio`, `notas`, `email`, `password`)
-    // VALUES
-    // ('ZA000003', 'asdoiu', 'oiuoiu', 'oiuoiuoiu', 'oiuoiuoiu', '', NULL, 'email', 'clave')
-    for ($i= 1; ($i <= 25); $i++) {
-      $modelo->nivel= sprintf( '1', $i);
-      $modelo->nombre= sprintf( 'nombre%d', $i);
-      $modelo->apellidos= sprintf( 'apellidos pregunta%d', $i);
-      $modelo->email= sprintf( 'pregunta%d@correo.es', $i);
-      $modelo->password= sprintf( 'pregunta%d', $i);
+    //Simular la creacion de varias preguntas...
+
+    for ($i= 1; ($i <= 100); $i++) {
+      $modelo->asignatura= sprintf( 'SOA');
+      $modelo->pregunta= sprintf( 'PREGUNTA%d', $i);
+      $modelo->ra = sprintf('a - %d' ,$i);
+      $modelo->rb = sprintf('b - %d' ,$i);
+      $modelo->rc = sprintf('c - %d' ,$i);
+      $modelo->rd = sprintf('d - %d' ,$i);
+      $modelo->correcta = str_shuffle('abcd')[0];
+      $modelo->nivel= sprintf( '%d', rand(1,4));
+      $modelo->veces_bien = rand(10,20);
+      $modelo->veces_mal = rand(10,20);
+      $modelo->veces = rand(40,100);
       $modelo->guardar();
       //crear nueva instancia para que se inserte el siguiente.
       $modelo= new pregunta;
@@ -230,83 +217,5 @@ class controlador_test extends controlador
     //--echo 'voy a redirigir la pagina...'; flush();//probar a generar contenido HTML antes de redirigir.
     vista::redirigir( array('pregunta','admin'));
   }//accion_creardemo
-  
-  //-------------------------------------------------------------------------
-  //Accion para EDITAR un modelo de pregunta de ejemplo.
-  public function accion_editardemo()
-  {
-    $bien= false;
-    //----------
-    //Simular la modificacion de los datos de pregunta... En concreto la clave primaria...
-    $modelo= new pregunta;
-    $id1= 'ZA000001';
-    $id2= 'VA000001';
-    $bien= $modelo->cargar( $id1);
-    if (!$bien) {
-      $id3= $id1;
-      $id1= $id2;
-      $id2= $id3;
-      $bien= $modelo->cargar( $id1);
-    }//if
-    if ($bien) {
-      depurar( array( 
-        'modelo.cargado'=> print_r( $modelo,true)
-      ));
-      $modelo->referencia= $id2;
-      if ($modelo->guardar()) {
-        $info= 'Modelo actualizado correctamente.';
-      } else {
-        $info= 'Modelo no actualizado.';
-      }//if
-      depurar( array( 
-        'info'=>$info,
-        'modelo.guardado'=> print_r( $modelo,true)
-      ));
-    } else {
-      echo 'No se ha podido cargar ninguna de las pruebas.';
-    }//if
-  }//accion_editardemo
-  
-  //-------------------------------------------------------------------------
-  //Accion para ELIMINAR un modelo de pregunta de ejemplo.
-  public function accion_borrardemo()
-  {
-    $bien= false;
-    //----------
-    //Simular la eliminacion de los datos de pregunta... En concreto la clave primaria...
-    $modelo= new pregunta;
-    $borrado= sesion::get( 'pregunta.borrado', null);
-    if ($borrado !== null) {
-      $modelo= $borrado;
-      $bien= $modelo->guardar();
-      if ($bien) {
-        depurar( array( 
-          'modelo.sesion.guardado' => print_r( $modelo, true)
-        ));
-        //Quitar de sesion el pregunta borrado para la proxima vez...
-        sesion::set( 'pregunta.borrado', null);
-      } else {
-        echo 'No se ha podido guardar el pregunta de la sesion.';
-      }//if
-    } else {
-      $bien= $modelo->cargar( 'ZA000005');
-      if ($bien) {
-        depurar( array( 
-          'modelo.cargado' => print_r( $modelo, true)
-        ));
-        if ($modelo->eliminar()) {
-          depurar( array( 
-            'modelo.borrado' => print_r( $modelo, true)
-          ));
-          //Guardar en sesion el pregunta borrado para la proxima vez...
-          sesion::set( 'pregunta.borrado', $modelo);
-        } else {
-          echo 'No se ha podido eliminar el pregunta de la BD.';
-        }//if
-      } else {
-        echo 'No se ha podido cargar el pregunta de la BD.';
-      }//if
-    }//if
-  }//accion_borrardemo
-  
-}//class controlador_test
+
+}//class controlador_preguntas

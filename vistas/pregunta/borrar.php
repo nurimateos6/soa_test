@@ -1,9 +1,9 @@
 <?php
 //---------------------------------------------------------------------------
-//Vista de CREACION de alumnos...
+//Vista de BORRADO de clientes...
 //---------------------------------------------------------------------------
 // Datos que recibe:
-//    $modelo --> Instancia con un modelo "alumno" a visualizar o "null" si
+//    $modelo --> Instancia con un modelo "Cliente" a visualizar o "null" si
 //                hubo error de carga.
 //    $error  --> Mensaje de error o cadena vacia si no hubo.
 //    $pagina --> numero de pagina que se esta obteniendo.
@@ -19,36 +19,33 @@ depurar( array(
 ?>
 <div id="main">
 <div class="inner">
-<h1>Crear Alumno</h1>
-<form action="" method="post">
+<h1>Eliminar Pregunta</h1>
 <div class="hoja">
 <table>
-<?php //Generar el cuerpo de la tabla con el formulario de cliente.
-vista::generarParcial( 'alumno_formulario', array( 'modelo'=>$modelo, 'error'=>$error));
+<?php //Generar el cuerpo de la tabla con la ficha de cliente.
+vista::generarParcial( 'pregunta_ficha', array( 'modelo'=>$modelo, 'error'=>$error));
 ?>
 <tfoot>
 <tr>
   <td colspan="2" class="cen">
-  <?php if (!empty($error)) { ?><div class="mensaje"><?php echo $error; ?></div><?php }//if ?>
   <div class="acciones">
 <?php //Generar el pie de la tabla con las acciones.
-//if (tiene_permiso( 'clientes.crear')) {
-  
-  vista::generarPieza( 'boton_accion', array( 'texto'=>'Crear Nuevo', 'icono'=>'guardar.png',
-    'activo'=>true, 'url'=>array('a'=>'alumno.crear', 'p'=>$pagina), 
-    'submit'=>true, 'guardado' => true));
+if ($modelo !== null) {
+//if (tiene_permiso( 'clientes.borrar')) {
+  vista::generarPieza( 'boton_accion', array( 'texto'=>'Confirmar Borrado', 'icono'=>false,
+    'activo'=>true, 'url'=>array('a'=>'pregunta.borrar', 'id'=>$modelo->id, 'ok'=>true, 'p'=>$pagina)));
 //}//if "permiso"
+}//if "hay modelo"
 echo '<div></div>';
 //Generar el boton para VOLVER.
-vista::generarPieza( 'boton_accion', array( 'texto'=>'Cancelar y Volver', 'icono'=>'volver.png',
-  'activo'=>true, 'url'=>array('a'=>'alumno', 'p'=>$pagina)));
+vista::generarPieza( 'boton_accion', array( 'texto'=>'Volver', 'icono'=>'volver.png',
+  'activo'=>true, 'url'=>array('a'=>'pregunta', 'p'=>$pagina)));
 ?>
   </div>
   </td>
 </tr>
 </tfoot>
 </table>
-</form>
 </div>
 </div>
 </div>

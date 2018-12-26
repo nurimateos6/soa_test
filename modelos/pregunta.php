@@ -1,13 +1,19 @@
 <?php
-class alumno extends modeloDAO
+class pregunta extends modeloDAO
 {
   //Atributos del objeto en la base de datos
-  public $id;          //id unica del alumno, creada autoincremental
-  public $nombre;      //Nombre del alumno 
-  public $apellidos;   //Apellidos del alumno 
-  public $nivel;       //nivel 
-  public $email;       //Correo electronico del alumno y a la vez login de acceso al sistema
-  public $password;    //Clave de acceso al sistema
+  public $id;          //id unica de la pregunta, creada autoincremental
+  public $asignatura;  //asignatura
+  public $pregunta;    //pregunta
+  public $ra;          //respuesta a
+  public $rb;          //respuesta b
+  public $rc;          //respuesta c
+  public $rd;          //respuesta d
+  public $correcta;    //respuesta correcta
+  public $nivel;       //nivel
+  public $veces_bien;  //Número de veces bien contestada
+  public $veces_mal;   //Número de veces mal contestada
+  public $veces;       //Número de veces preguntada
   
   //-------------------------------------------------------------------------
   //Atributos a iniciar por heredar de "modeloDAO".
@@ -37,7 +43,7 @@ class alumno extends modeloDAO
   //correspondiente al modelo de datos.
   public function sqlBuscar( $filtro)
   {
-    $sql= 'SELECT * FROM alumno';
+    $sql= 'SELECT * FROM pregunta';
     if (!empty($filtro)) {
       $sql.= ' WHERE (';
       if (!is_array($filtro)) {
@@ -61,11 +67,17 @@ class alumno extends modeloDAO
   {
     $datos= array(
       'id'=>$this->id,
-      'nombre'=>$this->nombre,
-      'apellidos'=>$this->apellidos,
+      'asignatura'=>$this->asignatura,
+      'pregunta' =>$this->pregunta,
+      'ra'=>$this->ra,
+      'rb'=>$this->rb,
+      'rc'=>$this->rc,
+      'rd'=>$this->rd,
+      'correcta'=>$this->correcta,
       'nivel'=>$this->nivel,
-      'email'=>$this->email,
-      'password'=>$this->password,
+      'veces_bien'=>$this->veces_bien,
+      'veces_mal'=>$this->veces_mal,
+      'veces'=>$this->veces,
     );
     //Procesar los datos para dejarlos preparados para la cadena SQL.
     $valores= array();
@@ -87,7 +99,7 @@ class alumno extends modeloDAO
     $campos= implode( ', ', array_keys( $datos));
     $valores= implode( ', ', array_values( $datos)); 
     //----------
-    $sql= 'INSERT INTO alumno ('.$campos.') VALUES ('.$valores.')';
+    $sql= 'INSERT INTO pregunta ('.$campos.') VALUES ('.$valores.')';
     //----------
     
     return $sql;
@@ -106,7 +118,7 @@ class alumno extends modeloDAO
     $datos= implode( ', ', $datos);
     $condicion= $this->condicionClave();
     //----------
-    $sql= 'UPDATE alumno SET '.$datos.' WHERE '.$condicion;
+    $sql= 'UPDATE pregunta SET '.$datos.' WHERE '.$condicion;
     //----------
     return $sql;
   }//sqlActualizar
@@ -118,17 +130,17 @@ class alumno extends modeloDAO
   {
     $condicion= $this->condicionClave();
     //----------
-    $sql= 'DELETE FROM alumno WHERE '.$condicion;
+    $sql= 'DELETE FROM pregunta WHERE '.$condicion;
     //----------
     return $sql;
   }//sqlEliminar
 
   //-------------------------------------------------------------------------
-  //Obtener la orden SQL para listar los registros de "alumno" de la tabla, 
+  //Obtener la orden SQL para listar los registros de "pregunta" de la tabla, 
   //sin imponer limitaciones al número de filas resultantes, ya que la posible
   //paginación se añade posteriormente. 
   //Esta consulta está enfocada a la busqueda de registros para la sección de 
-  //administración de alumno.
+  //administración de pregunta.
   // - $orden --> Se puede indicar el orden de los resultados tal cual se 
   // haría en la parte "ORDER BY" de la orden SQL, por defecto se ordena 
   // por "id".
@@ -136,8 +148,8 @@ class alumno extends modeloDAO
   {
     if (empty($orden)) $orden= 'id ASC';
     //----------
-    $sql= 'SELECT * FROM alumno ORDER BY '.$orden;
+    $sql= 'SELECT * FROM pregunta ORDER BY '.$orden;
     return $sql;
   }//sqlListar
   
-}//alumno
+}//pregunta

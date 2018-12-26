@@ -12,6 +12,8 @@
 			<li><a href="?a=inicio">Home</a></li>
 			<li><a href="?a=enunciado">Enunciado</a></li>
 			<li><a href="?a=alumno">Alumnos</a></li>
+			<li><a href="?a=pregunta">Preguntas</a></li>
+			<li><a href="?a=test">Test</a></li>
 			<li><a href="?a=elementos">Elementos web</a></li>
 		</ul>
 	</nav>

@@ -1,10 +1,10 @@
 <?php
 //---------------------------------------------------------------------------
-//Vista de Administracion de alumnos...
+//Vista de Administracion de preguntas...
 //---------------------------------------------------------------------------
 // Datos que recibe:
-//    $registros --> array con los registros de la tabla de alumnos.
-//    $total --> número de registros totales de la tabla de alumnos.
+//    $registros --> array con los registros de la tabla de preguntas.
+//    $total --> número de registros totales de la tabla de preguntas.
 //    $pagina --> numero de pagina que se esta obteniendo.
 //    $lineas --> numero de lineas visibles por pagina.
 //---------------------------------------------------------------------------
@@ -21,45 +21,49 @@
 ?>
 <div id="main">
 <div class="inner">
-<h1>Alumnos</h1>
+<h1>Preguntas</h1>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr>
   <th>ID.</th>
+  <th>Asignatura</th>
+  <th>Pregunta</th>
   <th>Nivel</th>
-  <th>Nombre</th>
-  <th>Apellidos</th>
-  <th>Email</th>
+  <th>Veces mal</th>
+  <th>Veces bien</th>
+  <th>Veces</th>
   <th>Acciones</th>
 </tr>
 </thead>
 <tbody>
-<?php //Generar los registros obtenidos de alumnos.
-$al= new alumno;
+<?php //Generar los registros obtenidos de preguntas.
+$al= new pregunta;
 if ($registros) 
 foreach($registros as $indice => $registro) {
   $al->llenar( $registro);
   echo '<tr class="'.(($indice % 2 == 0) ? 'par' : 'impar').'">';
   echo '<td class="cen">'.html::encode( $al->id).'</td>';
+  echo '<td class="cen">'.html::encode( $al->asignatura).'</td>';
+  echo '<td class="cen">'.html::encode( $al->pregunta).'</td>';
   echo '<td class="cen">'.html::encode( $al->nivel).'</td>';
-  echo '<td class="izq">'.html::encode( $al->nombre).'</td>';
-  echo '<td class="izq">'.html::encode( $al->apellidos).'</td>';
-  echo '<td class="izq">'.html::encode( $al->email).'</td>';
+  echo '<td class="izq">'.html::encode( $al->veces_bien).'</td>';
+  echo '<td class="izq">'.html::encode( $al->veces_mal).'</td>';
+  echo '<td class="izq">'.html::encode( $al->veces).'</td>';
   echo '<td class="cen">';
   echo '<div class="acciones"><div></div>';
   //-- echo 'Ver Modificar Eliminar';
-  //if (tiene_permiso( 'alumno.ver'))
+  //if (tiene_permiso( 'pregunta.ver'))
     vista::generarPieza( 'boton_accion', array( 'texto'=>'Ver', 'icono'=>'ver.png',
-      'activo'=>false, 'url'=>array('a'=>'alumno.ver', 'id'=>$al->id, 'p'=>$pagina)));
+      'activo'=>false, 'url'=>array('a'=>'pregunta.ver', 'id'=>$al->id, 'p'=>$pagina)));
   echo '<div></div>';
-  //if (tiene_permiso( 'alumno.editar')) 
+  //if (tiene_permiso( 'pregunta.editar')) 
     vista::generarPieza( 'boton_accion', array( 'texto'=>'Editar', 'icono'=>'editar.png',
-      'activo'=>false, 'url'=>array('a'=>'alumno.editar', 'id'=>$al->id, 'p'=>$pagina)));
+      'activo'=>false, 'url'=>array('a'=>'pregunta.editar', 'id'=>$al->id, 'p'=>$pagina)));
   echo '<div></div>';
-  //if (tiene_permiso( 'alumno.borrar')) 
+  //if (tiene_permiso( 'pregunta.borrar')) 
     vista::generarPieza( 'boton_accion', array( 'texto'=>'Borrar', 'icono'=>'borrar.png',
-      'activo'=>false, 'url'=>array('a'=>'alumno.borrar', 'id'=>$al->id, 'p'=>$pagina)));
+      'activo'=>false, 'url'=>array('a'=>'pregunta.borrar', 'id'=>$al->id, 'p'=>$pagina)));
   echo '</div>';
   echo '</td>';
   echo '</tr>';
@@ -68,9 +72,9 @@ foreach($registros as $indice => $registro) {
 </tbody>
 <tfoot>
 <tr>
-  <td colspan="5">
+  <td colspan="7">
 <?php //Generar el pie de la tabla con la informacion y paginador
-vista::generarPieza( 'paginador', array( 'url'=>array('a'=>'alumno'), 'total'=>$total, 'pagina'=>$pagina, 'lineas'=>$lineas));
+vista::generarPieza( 'paginador', array( 'url'=>array('a'=>'pregunta'), 'total'=>$total, 'pagina'=>$pagina, 'lineas'=>$lineas));
 ?>
   </td>
   <td class="cen">
@@ -78,7 +82,7 @@ vista::generarPieza( 'paginador', array( 'url'=>array('a'=>'alumno'), 'total'=>$
 //if (tiene_permiso( 'clientes.crear')) {
   echo '<div class="acciones">';
   vista::generarPieza( 'boton_accion', array( 'texto'=>'Nuevo', 'icono'=>'crear.png',
-    'activo'=>true, 'url'=>array('a'=>'alumno.crear', 'p'=>$pagina)));
+    'activo'=>true, 'url'=>array('a'=>'pregunta.crear', 'p'=>$pagina)));
   echo '</div>';
 //}//if
 ?>
