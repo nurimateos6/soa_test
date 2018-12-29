@@ -63,7 +63,7 @@
 		<!-- PIE DE PÁGINA -->
 		<footer id="footer" style="margin-top: 0px">
 			<div class="inner">
-				<section style="width: 100%">
+				<section style="display:inline-block; width: 100%">
 					<p><a href="http://poliz.usal.es"><span style="width: 10em" class="image right"><img src="images/poli.png" alt="" /></span></a>ESCUELA POLITÉCNICA SUPERIOR DE ZAMORA</br>
 					<i>Departamento de Informática y Automática</i></p>
 				</section>

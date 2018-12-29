@@ -27,6 +27,7 @@ if (!isset($icono)) $icono= false;
 if (!isset($url)) $url= array();
 if (!isset($activo)) $activo= false;
 if (!isset($submit)) $submit= false;
+if (!isset($vacio)) $vacio= false;
 
 //--<div class="boton-accion">
 ?>
@@ -38,7 +39,7 @@ if (is_string( $icono) && is_readable( dirname(__FILE__).'/../../images/'.$icono
 } else {
   $icono= false;
 }//if
-echo '<a id="boton" " href="'.$url.'"'.($activo ? ' class="button primary"':'')
+echo '<a id="boton" " href="'.$url.'"'.($activo ? ($vacio?' class="button"':' class="button primary"'):'')
   .($submit ? 'onclick="document.forms[0].action=this.href;document.forms[0].submit();return false;"' : '')
   .'>';
 if ($icono !== false) echo $icono;

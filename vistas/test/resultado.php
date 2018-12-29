@@ -1,40 +1,33 @@
 <?php
 //---------------------------------------------------------------------------
-//Vista de Test para los alumnos...
+// Vista de Resultados para los alumnos...
 //---------------------------------------------------------------------------
 // Datos que recibe:
-//    $preguntas --> array con las preguntas del test.
+//    $preguntas --> array con las preguntas del test con respuestas incluidas.
 //---------------------------------------------------------------------------
 
-        // ver($preguntas);
 
 ?>
 <div id="main">
 <div class="inner">
-<h1>Test</h1>
-<form method="post" action="?a=test"> 
+<h1>Corrección</h1>
+  <form method="post" action="?a=alumno.alumno"> 
 <?php 
-
-  // array de indice de de las respuestas en la BDD
-  $_SESSION['orden_respuestas']=array('ra','rb','rc','rd');
-  // Se baraja el array para que las respuestas no repitan el orden.
-  // Se guarda en sesión para utilizarlo después en la corrección
-  shuffle($_SESSION['orden_respuestas']);
-  $i=0;
-  foreach ($preguntas as $pregunta => $p){
-    $i++;
-    vista::generarParcial('pregunta',array('numero'=>$i,'pregunta'=>$p)); 
-  }
+    $i=0;// Variable para mostrar el número de pregunta dentro del test
+    foreach ($preguntas as $pregunta => $p){
+      $i++;
+      // Se muestra cada pregunta
+      vista::generarParcial('pregunta_resultado',array('numero'=>$i,'pregunta'=>$p)); 
+    }
 ?>
-<div class="col-12">
-  <ul class="actions fit">
-    <li>
-      <input  type="submit" value="Enviar" class="button primary fit">
-    </li>
-  </ul>
-</div>
-</form>
-
+    <div class="col-12">
+      <ul class="actions fit">
+        <li>
+          <input  type="submit" value="Salir" class="button primary fit">
+        </li>
+      </ul>
+    </div>
+  </form>
 </div>
 </div>
 

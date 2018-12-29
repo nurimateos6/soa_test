@@ -30,7 +30,29 @@ class controlador_alumno extends controlador
       'registros'=>$registros,
     ));
   }//accion_admin
-  
+
+
+  public function accion_alumno(){
+    $alumno = new alumno();
+                                      $n=     2     ;
+    $correo='al'.$n;
+    $password = 'al'.$n;
+
+    // Se realiza la búsqueda del alumno con el email y password indicados
+    $sql=$alumno->sqlBuscar(array('email'=>$correo,'password'=>$password));
+    // ver($sql);
+    // Se ejecuta la búsqueda del alumno indicado
+    $registro = basedatos::obtenerUno($sql);
+    // Se guarda el resultado de la búsqueda en el modelo.
+    $alumno->llenar($registro);
+
+    $_SESSION['alumno']=$alumno;
+    // Se consultan todos los datos guardados sobre los niveles del alumno
+    $niveles=basedatos::obtenerTodos('SELECT * FROM testalumno WHERE idalumno LIKE (SELECT id FROM alumno WHERE ( email = "'.$correo.'" AND password = "'.$password.'"))',-1,4);
+
+    vista::generarPagina( 'alumno', array('alumno'=>$alumno,'niveles'=>array_reverse($niveles)));
+
+  }
   //-------------------------------------------------------------------------
   //Accion para CREAR un alumno
   public function accion_crear()
@@ -195,104 +217,38 @@ class controlador_alumno extends controlador
   /*-----*/
   public function accion_creardemo()
   {
-    $bien= false;
     $modelo= new alumno;
-    //----------
-    //Simular la creacion de varios alumnos...
-    //INSERT INTO `alumnos`
-    // (`referencia`, `cifnif`, `nombre`, `apellidos`, `domFiscal`, `domEnvio`, `notas`, `email`, `password`)
-    // VALUES
-    // ('ZA000003', 'asdoiu', 'oiuoiu', 'oiuoiuoiu', 'oiuoiuoiu', '', NULL, 'email', 'clave')
-    for ($i= 1; ($i <= 25); $i++) {
-      $modelo->nivel= sprintf( '1', $i);
-      $modelo->nombre= sprintf( 'nombre%d', $i);
+
+    for ($i= 1; $i <= 25; $i++) {
+      $modelo->nivel= sprintf( '%d', rand(1,4));
+      $modelo->nombre= sprintf( 'al%d', $i);
       $modelo->apellidos= sprintf( 'apellidos alumno%d', $i);
-      $modelo->email= sprintf( 'alumno%d@correo.es', $i);
-      $modelo->password= sprintf( 'alumno%d', $i);
-      $modelo->guardar();
+      $modelo->email= sprintf( 'al%d', $i);
+      $modelo->password= md5(sprintf( 'al%d', $i));
+      $modelo->guardar(true);
+
+      for($j=1 ; $j <= $modelo->nivel ;  $j++ ) {
+      basedatos::ejecutarSQL('INSERT INTO testalumno (id, idalumno, nivel, puntos, correctas, incorrectas, ntests) VALUES (NULL, "'.$i.'","'.$j.'", "'.rand(1000,5000).'", "'.rand(50,100).'", "'.rand(20,70).'", "'.rand(10,40).'")');
+      }
       //crear nueva instancia para que se inserte el siguiente.
       $modelo= new alumno;
-    }//for
-    //--echo 'voy a redirigir la pagina...'; flush();//probar a generar contenido HTML antes de redirigir.
+    }
     vista::redirigir( array('alumno','admin'));
   }//accion_creardemo
   
   //-------------------------------------------------------------------------
-  //Accion para EDITAR un modelo de alumno de ejemplo.
-  public function accion_editardemo()
-  {
-    $bien= false;
-    //----------
-    //Simular la modificacion de los datos de alumno... En concreto la clave primaria...
-    $modelo= new alumno;
-    $id1= 'ZA000001';
-    $id2= 'VA000001';
-    $bien= $modelo->cargar( $id1);
-    if (!$bien) {
-      $id3= $id1;
-      $id1= $id2;
-      $id2= $id3;
-      $bien= $modelo->cargar( $id1);
-    }//if
-    if ($bien) {
-      depurar( array( 
-        'modelo.cargado'=> print_r( $modelo,true)
-      ));
-      $modelo->referencia= $id2;
-      if ($modelo->guardar()) {
-        $info= 'Modelo actualizado correctamente.';
-      } else {
-        $info= 'Modelo no actualizado.';
-      }//if
-      depurar( array( 
-        'info'=>$info,
-        'modelo.guardado'=> print_r( $modelo,true)
-      ));
-    } else {
-      echo 'No se ha podido cargar ninguna de las pruebas.';
-    }//if
-  }//accion_editardemo
-  
+ 
   //-------------------------------------------------------------------------
   //Accion para ELIMINAR un modelo de alumno de ejemplo.
   public function accion_borrardemo()
   {
-    $bien= false;
-    //----------
-    //Simular la eliminacion de los datos de alumno... En concreto la clave primaria...
-    $modelo= new alumno;
-    $borrado= sesion::get( 'alumno.borrado', null);
-    if ($borrado !== null) {
-      $modelo= $borrado;
-      $bien= $modelo->guardar();
-      if ($bien) {
-        depurar( array( 
-          'modelo.sesion.guardado' => print_r( $modelo, true)
-        ));
-        //Quitar de sesion el alumno borrado para la proxima vez...
-        sesion::set( 'alumno.borrado', null);
-      } else {
-        echo 'No se ha podido guardar el alumno de la sesion.';
-      }//if
-    } else {
-      $bien= $modelo->cargar( 'ZA000005');
-      if ($bien) {
-        depurar( array( 
-          'modelo.cargado' => print_r( $modelo, true)
-        ));
-        if ($modelo->eliminar()) {
-          depurar( array( 
-            'modelo.borrado' => print_r( $modelo, true)
-          ));
-          //Guardar en sesion el alumno borrado para la proxima vez...
-          sesion::set( 'alumno.borrado', $modelo);
-        } else {
-          echo 'No se ha podido eliminar el alumno de la BD.';
-        }//if
-      } else {
-        echo 'No se ha podido cargar el alumno de la BD.';
-      }//if
-    }//if
-  }//accion_borrardemo
+
+    basedatos::ejecutarSQL('DELETE FROM alumno');
+    basedatos::ejecutarSQL('ALTER TABLE alumno AUTO_INCREMENT = 1');
+    basedatos::ejecutarSQL('DELETE FROM testalumno');
+    basedatos::ejecutarSQL('ALTER TABLE testalumno AUTO_INCREMENT = 1');
+    vista::redirigir( array('alumno'));
+
+  }
   
 }//class controlador_alumnos
