@@ -54,13 +54,14 @@ $usuario= sesion::get('usuario');
 				//Si el usuario esta conectado, mostramos un boton para cerrar la sesión.
 				echo '<li><a href="?a=inicio.logout">Cerrar Sesión</a></li>';
 			}?>
-
-			<li><a href="?a=inicio">Home</a></li>
-			<li><a href="?a=enunciado">Enunciado</a></li>
+			<?php if (isset($_SESSION['usuario'])): ?>
+				<li><a href="?a=enunciado">Enunciado</a></li>
 			<li><a href="?a=alumno">Alumnos admin</a></li>
 			<li><a href="?a=alumno.alumno">Alumno</a></li>
 			<li><a href="?a=pregunta">Preguntas</a></li>
 			<li><a href="?a=test">Test</a></li>
 			<li><a href="?a=elementos">Elementos web</a></li>
-		</ul>
+			<?php endif ?>
+			<li><a href="?a=inicio">Home</a></li>
+
 	</nav>
