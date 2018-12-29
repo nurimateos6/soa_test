@@ -2379,7 +2379,7 @@ input, select, textarea, input[type="date"] {
 
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
-		overflow-x: scroll;
+		overflow-x: auto;
 	}
 
 	table {
@@ -3416,7 +3416,7 @@ input, select, textarea, input[type="date"] {
 		margin: 0 auto;
 		box-sizing: border-box;
 		padding: 0 2.5em 0 0;
-		overflow: scroll;
+		overflow: auto;
 	}
 .wrapper.user{
 	padding: 0 ;
@@ -3455,4 +3455,8 @@ input, select, textarea, input[type="date"] {
 }
 
 
-    
+
+/*botones página inicial*/
+#ini {
+	float:right;
+}
