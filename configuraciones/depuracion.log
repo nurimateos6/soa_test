@@ -21,3 +21,7 @@
 2018-12-29 18:50:36.337 basedatos::conectar Error BD(1049): Unknown database 'test'
 2018-12-29 18:50:54.553 basedatos::conectar Error BD(1049): Unknown database 'test'
 2018-12-29 18:51:42.302 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 18:59:17.281 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 19:00:20.543 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 19:57:58.790 basedatos::conectar Error BD(2002): No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+
