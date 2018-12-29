@@ -1,0 +1,23 @@
+2018-12-29 18:25:10.940 basedatos::ejecutarSQL BaseDatos Error (42S02): 1146 - Table 'test.pregunta' doesn't exist
+2018-12-29 18:25:10.941 basedatos::ejecutarSQL SQL= SELECT COUNT(*) AS total FROM (SELECT * FROM pregunta ORDER BY asignatura) As q
+2018-12-29 18:25:10.942 basedatos::ejecutarSQL BaseDatos Error (42S02): 1146 - Table 'test.pregunta' doesn't exist
+2018-12-29 18:25:10.942 basedatos::ejecutarSQL SQL= SELECT * FROM pregunta ORDER BY asignatura LIMIT 0,10
+2018-12-29 18:25:34.551 basedatos::ejecutarSQL BaseDatos Error (42S02): 1146 - Table 'test.pregunta' doesn't exist
+2018-12-29 18:25:34.551 basedatos::ejecutarSQL SQL= SELECT COUNT(*) AS total FROM (SELECT * FROM pregunta ORDER BY asignatura) As q
+2018-12-29 18:25:34.655 basedatos::ejecutarSQL BaseDatos Error (42S02): 1146 - Table 'test.pregunta' doesn't exist
+2018-12-29 18:25:34.655 basedatos::ejecutarSQL SQL= SELECT * FROM pregunta ORDER BY asignatura LIMIT 0,10
+2018-12-29 18:25:39.379 basedatos::ejecutarSQL BaseDatos Error (42S02): 1146 - Table 'test.alumno' doesn't exist
+2018-12-29 18:25:39.379 basedatos::ejecutarSQL SQL= SELECT * FROM alumno WHERE ((email = "al2") AND (password = "al2"))
+2018-12-29 18:25:39.380 basedatos::ejecutarSQL BaseDatos Error (42S02): 1146 - Table 'test.testalumno' doesn't exist
+2018-12-29 18:25:39.380 basedatos::ejecutarSQL SQL= SELECT * FROM testalumno WHERE idalumno LIKE (SELECT id FROM alumno WHERE ( email = "al2" AND password = "al2")) LIMIT 0,4
+2018-12-29 18:26:11.748 basedatos::ejecutarSQL BaseDatos Error (42S02): 1146 - Table 'test.alumno' doesn't exist
+2018-12-29 18:26:11.748 basedatos::ejecutarSQL SQL= SELECT * FROM alumno WHERE ((email = "al2") AND (password = "al2"))
+2018-12-29 18:26:11.749 basedatos::ejecutarSQL BaseDatos Error (42S02): 1146 - Table 'test.testalumno' doesn't exist
+2018-12-29 18:26:11.749 basedatos::ejecutarSQL SQL= SELECT * FROM testalumno WHERE idalumno LIKE (SELECT id FROM alumno WHERE ( email = "al2" AND password = "al2")) LIMIT 0,4
+2018-12-29 18:48:00.841 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 18:48:56.284 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 18:49:26.184 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 18:50:35.333 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 18:50:36.337 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 18:50:54.553 basedatos::conectar Error BD(1049): Unknown database 'test'
+2018-12-29 18:51:42.302 basedatos::conectar Error BD(1049): Unknown database 'test'
