@@ -8,3 +8,7 @@
 			<?php $imagen="inicio"; echo '<img src="images/'.$imagen.'.jpg" />';?>
 			<pre><code class="console">
 
+
+	</div>
+</div>
+
