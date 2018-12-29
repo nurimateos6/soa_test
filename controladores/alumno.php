@@ -38,7 +38,7 @@ class controlador_alumno extends controlador
                                       $n=     2     ;
     $correo='al'.$n;
     $password = 'al'.$n;
-    ver($_SESSION['usuario']->id);
+    // ver($_SESSION['usuario']->id);
     // Se realiza la búsqueda del alumno con el email y password indicados
     $sql=$alumno->sqlBuscar(array('id'=>$_SESSION['usuario']->id));
     // ver($sql);
@@ -47,11 +47,9 @@ class controlador_alumno extends controlador
     // Se guarda el resultado de la búsqueda en el modelo.
     $alumno->llenar($registro);
 
-    $_SESSION['alumno']=$alumno;
 
     // Se consultan todos los datos guardados sobre los niveles del alumno
-    $niveles=basedatos::obtenerTodos('SELECT * FROM testalumno WHERE idalumno LIKE (SELECT id FROM alumno WHERE ( email = "'.$correo.'" AND password = "'.$password.'"))',-1,4);
-
+    $niveles=basedatos::obtenerTodos('SELECT * FROM testalumno WHERE idalumno LIKE (SELECT id FROM alumno WHERE ( id = "'.$_SESSION['usuario']->id.'"))',-1,4);
     vista::generarPagina( 'alumno', array('alumno'=>$alumno,'niveles'=>array_reverse($niveles)));
 
   }
