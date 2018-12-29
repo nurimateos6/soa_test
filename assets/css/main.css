@@ -2379,7 +2379,7 @@ input, select, textarea, input[type="date"] {
 
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
-		overflow-x: auto;
+		overflow-x: scroll;
 	}
 
 	table {
@@ -2441,6 +2441,53 @@ input, select, textarea, input[type="date"] {
 			table.alt tfoot {
 				border-top: 0;
 			}
+/* Tabla pregunta */
+.pregunta {
+	padding: 1em;
+	margin: 1em 0 5em 0; 
+	background-color: none;
+	color:black;
+}
+.pregunta > div{
+		/*box-shadow: 0px 0px 8px  #FFFFFF !important;*/
+
+}
+.cabecera{
+	margin-left: 0px;
+	width: 100%;
+	text-align: left;
+	/*font-family: "Source Sans ", Helvetica, sans-serif;*/
+	font-family: "FontAwesome";
+
+}
+
+.cabecera>.num{
+	width: 4em;
+	padding: 0.5em ;
+	background-color: rgb(187, 225, 236);
+	border-radius: 0.5em 0.5em 0 0;
+	font-weight: bold;
+	text-align: center;
+}
+.cabecera>.preg{
+	padding: 1em;
+	background-color: rgb(187, 225, 236);
+	border-radius: 0em 0.5em 0 0;
+	width: 100%;
+	padding-left: 1em;
+	text-align: justify;
+
+}
+.respuestas{
+	font-family: "FontAwesome";
+	padding: 1em;
+	box-sizing: border-box;
+	background-color: rgb(246, 237, 245);
+	border-radius: 0 0 0.5em 0.5em;
+
+}
+
+
 
 /* Button */
 
@@ -2576,8 +2623,8 @@ input, select, textarea, input[type="date"] {
 			filter: brightness(55%) sepia(100%) saturate(500%) hue-rotate(170deg);
 		}
 		.boton{
-			height: 1em !important;
-			width: 1em !important;
+			height: 2em !important;
+			width: 2em !important;
 		}
 		div[class="acciones"] > div{
 			display: inline-block;
@@ -3363,12 +3410,13 @@ input, select, textarea, input[type="date"] {
 
 /* Wrapper */
 .wrapper {
-		border:1px solid red !important;
+		/*border:1px solid red !important;*/
 		width: 100%;
 		max-width: 68em;
 		margin: 0 auto;
 		box-sizing: border-box;
 		padding: 0 2.5em 0 0;
+		overflow: scroll;
 	}
 .wrapper.user{
 	padding: 0 ;
@@ -3395,7 +3443,9 @@ input, select, textarea, input[type="date"] {
 
 			#wrapper > * > .inner {
 				padding: 0 1.25em;
+				display: block;
 			}
+
 
 		}
 /*GOOGLE MAPS*/

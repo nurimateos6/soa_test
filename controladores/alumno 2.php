@@ -1,104 +1,79 @@
 <?php
 modelo::usar( 'alumno');
-modelo::usar( 'pregunta');
-
-class controlador_test extends controlador
+class controlador_alumno extends controlador
 {
-  public $accion_defecto= 'test';
-
-  public $preguntas = null;		//Array de objetos pregunta.
-  public $alumno = null;			//Instancia del modelo alumno.
+  public $accion_defecto= 'admin';
   
   //-------------------------------------------------------------------------
-  public function accion_test()
+  public function accion_admin()
   {
-    // Alumno que realiza el test
-    $this->alumno = new alumno();
-    // Array de preguntas del test.
-    $this->preguntas = array();
-    $pregunta = new pregunta;
-    
-    // Si hay post se hace la corrección del test, de lo contrario se hace
-    if (!empty($_POST)) {
-      
-      foreach ($_SESSION['respuestas'] as $res => $r ) {
+    //----------
+    //Extraer Datos para ejecucion con la pagina que se está viendo.
+    $pagina= (isset($_GET['p']) ? (int)$_GET['p'] : 0);
+    if ($pagina < 1) $pagina= 1;//se empieza en la primera pagina como mucho.
+    $lineas= config::get('pagina.lineas', 10);
+    //$lineas= 5;//Probar con menos lineas
+    if ($lineas < 1) $lineas= 1;//como minimo se obtiene 1 elemento por pagina.
+    //----------
+    //Ejecutar accion
+    $sql= alumno::sqlListar();
 
-        if (isset($_POST[$r['id']])) {
-          $respuestas=array('respuesta'=>$_POST[$r['id']] );
-          // echo 'MERGEO';
-          $_SESSION['respuestas'][$res]=array_merge($_SESSION['respuestas'][$res],$respuestas );
-        }
+    $total= basedatos::contar( $sql);
+    $registros= basedatos::obtenerTodos( $sql, $pagina-1, $lineas);
+    //----------
 
-      }
-      // Se genera la página con las preguntas del test.
-      vista::generarPagina( 'resultado', array( 'preguntas'=>$_SESSION['respuestas']));
+    //Dar una respuesta
+    vista::generarPagina( 'admin', array( 
+      'pagina'=>$pagina,
+      'lineas'=>$lineas,
+      'total'=>$total,
+      'registros'=>$registros,
+    ));
+  }//accion_admin
 
-    }else{
-      // Si el alumno tiene el nivel adecuado para hacer el test del nivel indicado por GET
-      if (isset($_GET['nivel']) && $this->alumno->nivel=$_GET['nivel']) {
-      
-        $_SESSION['respuestas']=[];
-        // Se escogen todas las preguntas del nivel seleccionado
-        
 
-        $sql=pregunta::sqlBuscar(array('nivel'=>$_GET['nivel']));
-        // Se obtienen los 10 primeros resultados
-        $preguntas=basedatos::obtenerTodos( $sql,-1,10);
+  public function accion_alumno(){
+    $alumno = new alumno();
+    $correo='alumno7@correo.es';
+    $password = 'alumno7';
 
-        // Se guardan las preguntas en una variable de sesión.
-        $_SESSION['respuestas']=[];
-        foreach ($preguntas as $pregunta)
-          array_push($_SESSION['respuestas'], $pregunta);
-        // Se genera la página con las preguntas del test.
-        vista::generarPagina( 'test', array( 'preguntas'=>$_SESSION['respuestas']));
-      }else{
-            vista::redirigir( array('alumno','alumno'));
-      }
-    }
-  }//accion_test
+    // Se realiza la búsqueda del alumno con el email y password indicados
+    $sql=$alumno->sqlBuscar(array('email'=>$correo,'password'=>$password));
+    // ver($sql);
+    // Se ejecuta la búsqueda del alumno indicado
+    $registro = basedatos::obtenerUno($sql);
 
+    // Se guarda el resultado de la búsqueda en el modelo.
+    $alumno->llenar($registro);
+
+
+    // Se genera la página con los datos del alumno.
+    vista::generarPagina( 'alumno', array('alumno'=>$alumno));
+
+  }
   //-------------------------------------------------------------------------
-  //Cargar el alumno logueado.
-  public function cargarAlumno()
-  {
-    //Si el cliente no esta cargado, o si lo esta, hay referencia en el pedido
-    //y las referencias no coinciden entre si, se intenta cargar.
-    if (($this->alumno === null) || 
-          (($this->alumno !== null) && !empty($this->refCli) 
-              && ($this->alumno->id != $this->refCli))) {
-      //Crear la instancia nueva y cargarla, y si falla, dejarla nula.
-      $this->alumno= new alumno;
-      if (!$this->alumno->cargar( $this->refCli)) $this->alumno= null;
-    }//if
-    return ($this->alumno !== null);
-  }//cargarCliente
-  
-  //-------------------------------------------------------------------------
-
-  
-  //-------------------------------------------------------------------------
-  //Accion para CREAR un pregunta
+  //Accion para CREAR un alumno
   public function accion_crear()
   {
     $bien= false;
     $error= '';
-    $modelo= new pregunta;
+    $modelo= new alumno;
     //----------
     $pagina= (int)(isset($_GET['p']) ? $_GET['p'] : 0);//coger la pagina para poder volver
     //----------
-    //Si hay datos del formulario pregunta, se intenta crear nueva...
-    if (isset($_POST['pregunta'])) {
+    //Si hay datos del formulario alumno, se intenta crear nuevo...
+    if (isset($_POST['alumno'])) {
       //Copiar los datos del formulario...
-      $modelo->llenar( $_POST['pregunta']);
+      $modelo->llenar( $_POST['alumno']);
       //Intentar guardar validando antes el modelo...
       $bien= $modelo->guardar();
-      if ($bien) $error= 'El pregunta se ha guardado correctamente.';
-      else $error= 'No se ha podido guardar la pregunta nueva.';
+      if ($bien) $error= 'El alumno se ha guardado correctamente.';
+      else $error= 'No se ha podido guardar el alumno nuevo.';
     }//if
     //----------
     //Dar una respuesta segun el resultado del proceso.
     if ($bien) {
-      //vista::redirigir( array('preguntas.editar'), array('id'=>$modelo->referencia, 'p'=>$pagina));
+      //vista::redirigir( array('alumnos.editar'), array('id'=>$modelo->referencia, 'p'=>$pagina));
       vista::generarPagina( 'editar', array( 
         'modelo'=>$modelo,
         'error'=>$error,
@@ -116,7 +91,7 @@ class controlador_test extends controlador
   }//accion_crear
   
   //-------------------------------------------------------------------------
-  //Accion para EDITAR un pregunta
+  //Accion para EDITAR un alumno
   public function accion_editar()
   {
     $bien= false;
@@ -128,28 +103,28 @@ class controlador_test extends controlador
     //Coger el dato clave para cargar el modelo a editar...
     $id= (isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : null));
     if ($id === null) {
-      $error= 'No se ha indicado el pregunta a editar.';
+      $error= 'No se ha indicado el alumno a editar.';
     } else {
-      $modelo= new pregunta;
+      $modelo= new alumno;
       if (!$modelo->cargar( $id)) {
-        $error= 'No se puede cargar el pregunta ('.$id.') para editar.';
+        $error= 'No se puede cargar el alumno ('.$id.') para editar.';
         $modelo= null;
       }//if
     }//if
     //----------
     //Si hay modelo cargado, y datos del formulario, se intenta copiar/guardar.
-    if (($modelo !== null) && isset($_POST['pregunta'])) {
+    if (($modelo !== null) && isset($_POST['alumno'])) {
       //Copiar los datos del formulario...
-      $modelo->llenar( $_POST['pregunta']);
+      $modelo->llenar( $_POST['alumno']);
       //Intentar guardar validando antes el modelo...
       $bien= $modelo->guardar();
-      if ($bien) $error= 'El pregunta se ha guardado correctamente.';
-      else $error= 'No se ha podido guardar la pregunta ('.$id.').';
+      if ($bien) $error= 'El alumno se ha guardado correctamente.';
+      else $error= 'No se ha podido guardar el alumno ('.$id.').';
     }//if
     //----------
     //Dar una respuesta segun el resultado del proceso.
     //--if ($bien) {
-    //--  vista::redirigir( array('preguntas'), array('p'=>$pagina));
+    //--  vista::redirigir( array('alumnos'), array('p'=>$pagina));
     //--} else {
       vista::generarPagina( 'editar', array( 
         'modelo'=>$modelo,
@@ -161,7 +136,7 @@ class controlador_test extends controlador
   }//accion_editar
   
   //-------------------------------------------------------------------------
-  //Accion para CONSULTAR un pregunta
+  //Accion para CONSULTAR un alumno
   public function accion_ver()
   {
     $bien= false;
@@ -173,11 +148,11 @@ class controlador_test extends controlador
     //Coger el dato clave para cargar el modelo a editar...
     $id= (isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : null));
     if ($id === null) {
-      $error= 'No se ha indicado el pregunta a consultar.';
+      $error= 'No se ha indicado el alumno a consultar.';
     } else {
-      $modelo= new pregunta;
+      $modelo= new alumno;
       if (!$modelo->cargar( $id)) {
-        $error= 'No se puede cargar el pregunta ('.$id.') para consultar.';
+        $error= 'No se puede cargar el alumno ('.$id.') para consultar.';
         $modelo= null;
       }//if
     }//if
@@ -191,7 +166,7 @@ class controlador_test extends controlador
   }//accion_ver
   
   //-------------------------------------------------------------------------
-  //Accion para ELIMINAR un pregunta
+  //Accion para ELIMINAR un alumno
   public function accion_borrar()
   {
     $bien= false;
@@ -203,11 +178,11 @@ class controlador_test extends controlador
     //Coger el dato clave para cargar el modelo a editar...
     $id= (isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : null));
     if ($id === null) {
-      $error= 'No se ha indicado el pregunta a editar.';
+      $error= 'No se ha indicado el alumno a editar.';
     } else {
-      $modelo= new pregunta;
+      $modelo= new alumno;
       if (!$modelo->cargar( $id)) {
-        $error= 'No se puede cargar el pregunta ('.$id.') para editar.';
+        $error= 'No se puede cargar el alumno ('.$id.') para editar.';
         $modelo= null;
       }//if
     }//if
@@ -218,13 +193,13 @@ class controlador_test extends controlador
     if (($modelo !== null) && $confirmado) {
       //Intentar eliminar el modelo...
       $bien= $modelo->eliminar();
-      if ($bien) $error= 'El pregunta se ha eliminado correctamente.';
-      else $error= 'No se ha podido eliminar el pregunta ('.$id.').';
+      if ($bien) $error= 'El alumno se ha eliminado correctamente.';
+      else $error= 'No se ha podido eliminar el alumno ('.$id.').';
     }//if
     //----------
     //Dar una respuesta segun el resultado del proceso.
     if ($bien) {
-      vista::redirigir( array('pregunta'), array('p'=>$pagina));
+      vista::redirigir( array('alumno'), array('p'=>$pagina));
     } else {
       vista::generarPagina( 'borrar', array(
         'modelo'=>$modelo,
@@ -235,41 +210,41 @@ class controlador_test extends controlador
   }//accion_borrar
   
   //-------------------------------------------------------------------------
-  //Accion para CREAR modelos de pregunta de ejemplo.
+  //Accion para CREAR modelos de alumno de ejemplo.
   //Eliminar o comentar cuando no se use.
   /*-----*/
   public function accion_creardemo()
   {
     $bien= false;
-    $modelo= new pregunta;
+    $modelo= new alumno;
     //----------
-    //Simular la creacion de varios preguntas...
-    //INSERT INTO `preguntas`
+    //Simular la creacion de varios alumnos...
+    //INSERT INTO `alumnos`
     // (`referencia`, `cifnif`, `nombre`, `apellidos`, `domFiscal`, `domEnvio`, `notas`, `email`, `password`)
     // VALUES
     // ('ZA000003', 'asdoiu', 'oiuoiu', 'oiuoiuoiu', 'oiuoiuoiu', '', NULL, 'email', 'clave')
     for ($i= 1; ($i <= 25); $i++) {
       $modelo->nivel= sprintf( '1', $i);
       $modelo->nombre= sprintf( 'nombre%d', $i);
-      $modelo->apellidos= sprintf( 'apellidos pregunta%d', $i);
-      $modelo->email= sprintf( 'pregunta%d@correo.es', $i);
-      $modelo->password= sprintf( 'pregunta%d', $i);
+      $modelo->apellidos= sprintf( 'apellidos alumno%d', $i);
+      $modelo->email= sprintf( 'alumno%d@correo.es', $i);
+      $modelo->password= sprintf( 'alumno%d', $i);
       $modelo->guardar();
       //crear nueva instancia para que se inserte el siguiente.
-      $modelo= new pregunta;
+      $modelo= new alumno;
     }//for
     //--echo 'voy a redirigir la pagina...'; flush();//probar a generar contenido HTML antes de redirigir.
-    vista::redirigir( array('pregunta','admin'));
+    vista::redirigir( array('alumno','admin'));
   }//accion_creardemo
   
   //-------------------------------------------------------------------------
-  //Accion para EDITAR un modelo de pregunta de ejemplo.
+  //Accion para EDITAR un modelo de alumno de ejemplo.
   public function accion_editardemo()
   {
     $bien= false;
     //----------
-    //Simular la modificacion de los datos de pregunta... En concreto la clave primaria...
-    $modelo= new pregunta;
+    //Simular la modificacion de los datos de alumno... En concreto la clave primaria...
+    $modelo= new alumno;
     $id1= 'ZA000001';
     $id2= 'VA000001';
     $bien= $modelo->cargar( $id1);
@@ -299,14 +274,14 @@ class controlador_test extends controlador
   }//accion_editardemo
   
   //-------------------------------------------------------------------------
-  //Accion para ELIMINAR un modelo de pregunta de ejemplo.
+  //Accion para ELIMINAR un modelo de alumno de ejemplo.
   public function accion_borrardemo()
   {
     $bien= false;
     //----------
-    //Simular la eliminacion de los datos de pregunta... En concreto la clave primaria...
-    $modelo= new pregunta;
-    $borrado= sesion::get( 'pregunta.borrado', null);
+    //Simular la eliminacion de los datos de alumno... En concreto la clave primaria...
+    $modelo= new alumno;
+    $borrado= sesion::get( 'alumno.borrado', null);
     if ($borrado !== null) {
       $modelo= $borrado;
       $bien= $modelo->guardar();
@@ -314,10 +289,10 @@ class controlador_test extends controlador
         depurar( array( 
           'modelo.sesion.guardado' => print_r( $modelo, true)
         ));
-        //Quitar de sesion el pregunta borrado para la proxima vez...
-        sesion::set( 'pregunta.borrado', null);
+        //Quitar de sesion el alumno borrado para la proxima vez...
+        sesion::set( 'alumno.borrado', null);
       } else {
-        echo 'No se ha podido guardar el pregunta de la sesion.';
+        echo 'No se ha podido guardar el alumno de la sesion.';
       }//if
     } else {
       $bien= $modelo->cargar( 'ZA000005');
@@ -329,15 +304,15 @@ class controlador_test extends controlador
           depurar( array( 
             'modelo.borrado' => print_r( $modelo, true)
           ));
-          //Guardar en sesion el pregunta borrado para la proxima vez...
-          sesion::set( 'pregunta.borrado', $modelo);
+          //Guardar en sesion el alumno borrado para la proxima vez...
+          sesion::set( 'alumno.borrado', $modelo);
         } else {
-          echo 'No se ha podido eliminar el pregunta de la BD.';
+          echo 'No se ha podido eliminar el alumno de la BD.';
         }//if
       } else {
-        echo 'No se ha podido cargar el pregunta de la BD.';
+        echo 'No se ha podido cargar el alumno de la BD.';
       }//if
     }//if
   }//accion_borrardemo
   
-}//class controlador_test
+}//class controlador_alumnos

@@ -1,21 +1,11 @@
 <?php
 //---------------------------------------------------------------------------
-//Vista de FICHA de cliente que va embebida dentro de las vistas de 
-//CONSULTA o BORRADO.
+// Formulario para editar un alumno.
 //---------------------------------------------------------------------------
 // Datos que recibe:
-//    $modelo --> Instancia con un modelo "Cliente" a visualizar o "null" si
-//                hubo error de carga.
-//    $error  --> Mensaje de error o cadena vacia si no hubo.
+//    $modelo --> Instancia con un modelo "alumno".
 //---------------------------------------------------------------------------
-/*-----
-depurar( array( 
-  'id_controlador' => aplicacion::$id_controlador,
-  'id_accion' => aplicacion::$id_accion,
-  'modelo' => $modelo,
-  'error' => $error,
-));
-//-----*/
+
 ?>
 <tbody class="formulario">
 <?php if ($modelo !== null) { ?>
@@ -28,19 +18,19 @@ depurar( array(
            value="<?php echo html::encode( $modelo->nivel);?>"/>
   </td></tr>
   <tr><th>Nombre</th><td>
-    <input type="text" name="alumno[nombre]" id="alumno_nombre" maxlength="250" 
+    <input type="text" name="alumno[nombre]" id="alumno_nombre" maxlength="30" 
            value="<?php echo html::encode( $modelo->nombre);?>"/>
   </td></tr>
   <tr><th>Apellidos</th><td>
-    <input type="text" name="alumno[apellidos]" id="alumno_apellidos" maxlength="250" 
+    <input type="text" name="alumno[apellidos]" id="alumno_apellidos" maxlength="60" 
            value="<?php echo html::encode( $modelo->apellidos);?>"/>
   </td></tr>
   <tr><th>E-Mail</th><td>
-    <input type="text" name="alumno[email]" id="alumno_email" maxlength="100" 
+    <input type="text" name="alumno[email]" id="alumno_email" maxlength="30" 
            value="<?php echo html::encode( $modelo->email);?>"/>
   </td></tr>
   <tr><th>Password</th><td>
-    <input type="password" name="alumno[password]" id="alumno_password" maxlength="32" 
+    <input type="password" name="alumno[password]" id="alumno_password" maxlength="30" 
            value="<?php echo html::encode( $modelo->password);?>"/>
   </td></tr>
 <?php } else { ?>

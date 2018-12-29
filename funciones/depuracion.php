@@ -133,4 +133,11 @@ function depurar( $variables= array())
     }
 }//depurar
 
+function ver($variables=array()){
 
+
+  echo '<pre><code>';
+  htmlspecialchars(var_dump($variables));
+  echo '</code></pre>';
+
+}
