@@ -59,7 +59,24 @@ class pregunta extends modeloDAO
     }//if
     return $sql;
   }//sqlBuscar
-  
+    public function sqlTest( $filtro )
+  {
+    $sql= 'SELECT * FROM pregunta';
+    if (!empty($filtro)) {
+      $sql.= ' WHERE (';
+      if (!is_array($filtro)) {
+        $sql.= $filtro;
+      } else {
+        $condiciones= array();
+        foreach( $filtro as $campo => $valor) {
+          $condiciones[]= $campo.' = "'.basedatos::escapar( $valor).'"';
+        }//foreach
+        $sql.= '('.implode( ') AND (', $condiciones).')';
+      }//if
+      $sql.= ')';
+    }//if
+    return $sql;
+  }//sqlBuscar
   //-------------------------------------------------------------------------
   //Devolver los datos necesarios para generar una orden SQL para INSERTAR
   //o ACTUALIZAR un registro en la base de datos para este modelo.

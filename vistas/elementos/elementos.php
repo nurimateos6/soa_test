@@ -316,10 +316,33 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 						</div>
 					</div>
+<!-- SCRIPT PARA PODER DESMARCAR LOS BOTONES RADIO -->
 <script type="text/javascript">
-			$('input[type=radio]').click(function(){
-    if (this.previous) {
-        this.checked = false;
-    }
-    this.previous = this.checked;
+  $('input[type=radio]').click(function(){
+  /* Se guardan todos los radiobutton con el mismo nombre
+     que el que se ha clicado*/
+  var radios = document.getElementsByName(this.name);
+  // Se transforma la variable anterior en un array
+  var ra = Array.prototype.slice.call(radios);
+  // Change the text of multiple elements with a loop
+
+  if (this.previous) {
+    // Para cada radiobutton con el mismo nombre...
+    ra.forEach(function(element){
+      // ... se desmarcan todos y se cambia el estado anterior a false
+      element.checked = false;
+      element.previous = false;
+    });
+  }else{
+    // Para cada radiobutton con el mismo nombre...
+    ra.forEach(function(element){
+      // ... se desmarcan todos y se cambia el estado anterior a false
+      element.checked = false;
+      element.previous = false;
+    });
+    // Se vuelve a checar el radiobutton clicado
+    this.checked = true;
+  }
+  // Se guarda el estado anterior
+  this.previous = this.checked;
 });</script>
