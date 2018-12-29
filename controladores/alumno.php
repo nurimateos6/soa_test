@@ -33,13 +33,14 @@ class controlador_alumno extends controlador
 
 
   public function accion_alumno(){
+
     $alumno = new alumno();
                                       $n=     2     ;
     $correo='al'.$n;
     $password = 'al'.$n;
-
+    ver($_SESSION['usuario']->id);
     // Se realiza la búsqueda del alumno con el email y password indicados
-    $sql=$alumno->sqlBuscar(array('email'=>$correo,'password'=>$password));
+    $sql=$alumno->sqlBuscar(array('id'=>$_SESSION['usuario']->id));
     // ver($sql);
     // Se ejecuta la búsqueda del alumno indicado
     $registro = basedatos::obtenerUno($sql);
@@ -47,6 +48,7 @@ class controlador_alumno extends controlador
     $alumno->llenar($registro);
 
     $_SESSION['alumno']=$alumno;
+
     // Se consultan todos los datos guardados sobre los niveles del alumno
     $niveles=basedatos::obtenerTodos('SELECT * FROM testalumno WHERE idalumno LIKE (SELECT id FROM alumno WHERE ( email = "'.$correo.'" AND password = "'.$password.'"))',-1,4);
 
