@@ -5,7 +5,7 @@
     'submit'=>true)); 
     ?>
 </div>
-<div>
+<div style="display: inline-block; margin:10px;">
     <?php
  	vista::generarPieza( 'boton_accion', array( 'texto'=>'Registrarse',
     'activo'=>true, 'url'=>array('a'=>'inicio.registro'), 
@@ -22,9 +22,11 @@
 		<section>
 			<h2>Tu plataforma para realizar test e impulsar tu aprendizaje</h2>
 			<p>Con los mejores profesores</p>
-			<?php $imagen="inicio"; echo '<img src="images/'.$imagen.'.jpg" />';?>
+				<?php $imagen="inicio"; echo '<img src="images/'.$imagen.'.jpg" />';?>
 
-			<br/><br/>
+
+			<br/><br/><br/>
+		</section>
 	</div>
 </div>
 
