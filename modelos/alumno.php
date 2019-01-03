@@ -92,7 +92,15 @@ class alumno extends modeloDAO
     
     return $sql;
   }//sqlInsertar
-  
+  public function sqlInsertarTestAlumno($id){
+
+    error_log('idddddd->'.$id.'<-idddddd');
+
+    $sql = 'INSERT INTO testalumno (id,idalumno,nivel,puntos,correctas,incorrectas,ntests) VALUES (NULL,'.$id.',1,0,0,0,0)';
+
+    basedatos::ejecutarSQL($sql);
+
+  }
   //-------------------------------------------------------------------------
   //Devolver la orden SQL para actualizar un registro existente en la tabla 
   //correspondiente al modelo de datos.

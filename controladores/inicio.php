@@ -85,6 +85,13 @@ class controlador_inicio extends controlador
                 //Intentar guardar validando antes el modelo...
                 $bien= $modelo->guardar();
 
+
+
+
+                //Insertar primer nivel para alumno recien registrado
+                $modelo->sqlInsertarTestAlumno($modelo->id);
+
+
                 //Crear el directio de usuario
                 $ruta = './usuarios/'.$modelo->id;
                       
