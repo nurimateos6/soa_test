@@ -99,7 +99,7 @@ class controlador_inicio extends controlador
                 
                 //Copiar el avatar generico por defecto.
                 $copia = $ruta."/avatar.jpg";
-                $default = "./images/default.jpg";
+                $default = "./images/default.png";
 
                 if (!copy($default,$copia)) $bien = $bien and false;
                
@@ -183,6 +183,7 @@ class controlador_inicio extends controlador
               $usuario->login = $alumno->email;
               $usuario->nombre = $alumno->nombre;
               $usuario->apellidos= $alumno->apellidos;
+              $usuario->nivel = $alumno->nivel;
               $usuario->password= '';
 
 

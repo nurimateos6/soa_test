@@ -18,7 +18,7 @@ class controlador_test extends controlador
     $this->preguntas = array();
     $pregunta = new pregunta;
     
-    // Si hay post se hace la corrección del test, de lo contrario se hace
+    // Si hay post se hace la corrección del test, de lo contrario se hace la corrección.
     if (!empty($_POST)) {
       
       foreach ($_SESSION['respuestas'] as $res => $r ) {
@@ -30,6 +30,10 @@ class controlador_test extends controlador
         }
 
       }
+
+      // Guarda las respuestas en la base de datos.
+      $this->accion_puntuar($_SESSION['respuestas']);
+
       // Se genera la página con las preguntas del test.
       vista::generarPagina( 'resultado', array( 'preguntas'=>$_SESSION['respuestas']));
 
@@ -74,7 +78,90 @@ class controlador_test extends controlador
   }//cargarCliente
   
   //-------------------------------------------------------------------------
+  // ["id"]=>
+  //   string(3) "334"
+  //   ["asignatura"]=>
+  //   string(3) "SOA"
+  //   ["pregunta"]=>
+  //   string(9) "PREGUNTA2"
+  //   ["ra"]=>
+  //   string(5) "a - 2"
+  //   ["rb"]=>
+  //   string(5) "b - 2"
+  //   ["rc"]=>
+  //   string(5) "c - 2"
+  //   ["rd"]=>
+  //   string(5) "d - 2"
+  //   ["correcta"]=>
+  //   string(1) "d"
+  //   ["nivel"]=>
+  //   string(1) "1"
+  //   ["veces_bien"]=>
+  //   string(2) "17"
+  //   ["veces_mal"]=>
+  //   string(2) "10"
+  //   ["veces"]=>
+  //   string(2) "42"
+  //   ["respuesta"]=>
+  //   string(2) "rc"
+  // Corrige las respuestas y actualiza la base de datos.
+  public function accion_puntuar($respuestas){
+    $puntos=0; //puntos que consigue el alumno en el test
+    $correctas=0;
+    $incorrectas=0;
 
+
+
+    foreach ($respuestas as $respuesta ) {
+      // Si el usuario a respondido a la pregunta...
+      if (isset($respuesta['respuesta'])) {
+        if ($respuesta['respuesta']=='r'.$respuesta['correcta'] ){
+          $puntos += 10;// se suman 10 puntos al alumno
+          // Consulta para actualizar los datos de la pregunta.
+          $sql_1 = 'UPDATE pregunta SET veces_bien = '.($respuesta['veces_bien']+1).', veces = '.($respuesta['veces']+1).' WHERE pregunta.id = '.($respuesta['id']).';';
+          basedatos::ejecutarSQL( $sql_1 );
+          $correctas++;
+
+          /* FALTA ALUMNO SQL*/
+        }else{
+          $puntos -= 5; // Se restan 5 puntos al alumno
+          $sql_1 = 'UPDATE pregunta SET veces_mal = '.($respuesta['veces_mal']+1).', veces = '.($respuesta['veces']+1).' WHERE pregunta.id = '.($respuesta['id']).';';
+          basedatos::ejecutarSQL( $sql_1 );
+          $incorrectas++;
+        }
+
+      }else{
+        $sql_1 = 'UPDATE pregunta SET veces = '.($respuesta['veces']+1).' WHERE pregunta.id = '.($respuesta['id']).';';
+        basedatos::ejecutarSQL( $sql_1 );
+      }
+    }
+
+    $sql_testalumno= 'SELECT * FROM testalumno WHERE idalumno = '.$_SESSION['usuario']->id.' AND nivel = '.$respuestas['0']['nivel'];
+    $r=basedatos::ejecutarSQL(  $sql_testalumno );
+
+    $linea_testalumno=$r->fetch_assoc();
+    
+    $sql_2 = 'UPDATE testalumno SET puntos = '.($linea_testalumno['puntos']+$puntos).', correctas = '.($linea_testalumno['correctas']+$correctas).', incorrectas = '.($linea_testalumno['incorrectas']+$incorrectas).', ntests = '.($linea_testalumno['ntests']+1).' WHERE id = '.$linea_testalumno['id'];
+
+    basedatos::ejecutarSQL( $sql_2 );
+    ver($_SESSION['usuario']);
+    //Se comprueba el nivel del alumno y del test que ha realizado para ver si sube de nivel con
+    // los puntos obtenidos.
+    if ( $_SESSION['usuario']->nivel != 4 &&  $_SESSION['usuario']->nivel == $respuestas['0']['nivel']) {
+      if ($linea_testalumno['puntos']+$puntos >= 10 ) {
+        // Se añade la nueva linea vacía de testalumno
+        $sql_3 = 'INSERT INTO testalumno (id,idalumno,nivel,puntos,correctas,incorrectas,ntests) VALUES (NULL,'.$_SESSION['usuario']->id.','.($_SESSION['usuario']->nivel+1).',0,0,0,0)';
+        basedatos::ejecutarSQL($sql_3);
+        //Se actualiza el nivel del alumno
+        $sql_3 = 'UPDATE alumno SET nivel = '.($_SESSION['usuario']->nivel+1).' WHERE id = '.$_SESSION['usuario']->id;
+        basedatos::ejecutarSQL($sql_3);
+
+
+
+      }
+    }
+
+  }
   
   //-------------------------------------------------------------------------
   //Accion para CREAR un pregunta

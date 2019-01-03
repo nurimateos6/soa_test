@@ -6,7 +6,6 @@
 //    $preguntas --> array con las preguntas del test con respuestas incluidas.
 //---------------------------------------------------------------------------
 
-
 ?>
 <div id="main">
 <div class="inner">

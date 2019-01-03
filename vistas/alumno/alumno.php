@@ -37,7 +37,7 @@ $np=20;
 <?php
 
   foreach ($niveles as $nivel) {
-    ($nivel['ntests']==0)?$nivel['ntests']=1:null;
+    ($nivel['ntests']==0)?$ntests=1:$ntests=$nivel['ntests'];
     echo '<div " class="col-3">';
       if ($alumno->nivel==$nivel['nivel'])
         echo '<canvas style="width: 5em" id="canvas"></canvas>';
@@ -61,9 +61,9 @@ $np=20;
           <tbody>
               <tr style="font-weight: bold; font-size: 1em">
                 <td style="color:yellow"><?= $nivel['puntos'] ?></td>
-                <td style="color:lightgreen"><?= round(($nivel['correctas']/($nivel['ntests']*$np))*100,1) ?> %</td>
-                <td style="color:red"><?= round(($nivel['incorrectas']/($nivel['ntests']*$np))*100,1)?> %</td>
-                <td ><?= round(((($nivel['correctas']+$nivel['incorrectas'])/($nivel['ntests']*$np))*100),1) ?> %</td>
+                <td style="color:lightgreen"><?= round(($nivel['correctas']/($ntests*$np))*100,1) ?> %</td>
+                <td style="color:red"><?= round(($nivel['incorrectas']/($ntests*$np))*100,1)?> %</td>
+                <td ><?= round(((($nivel['correctas']+$nivel['incorrectas'])/($ntests*$np))*100),1) ?> %</td>
                 <td ><?= $nivel['ntests'] ?></td>
               </tr>
           </tbody>
