@@ -92,9 +92,9 @@ class alumno extends modeloDAO
     
     return $sql;
   }//sqlInsertar
+  
   public function sqlInsertarTestAlumno($id){
-
-    $sql = 'INSERT INTO testalumno (id,idalumno,nivel,puntos,correctas,incorrectas,ntests) VALUES (NULL,'.$id.',1,0,0,0,0)';
+    $sql = 'INSERT INTO testalumno (id,idalumno,nivel,puntos,correctas,incorrectas,ntests) VALUES (NULL,"'.$id.'",1,0,0,0,0)';
 
     basedatos::ejecutarSQL($sql);
 

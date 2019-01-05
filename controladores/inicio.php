@@ -69,6 +69,7 @@ class controlador_inicio extends controlador
 
 
                 //Si no hay usuarios en la base de datos, establecemos el primer ID, si no, incrementamos el anterior.
+                ver($registro['id']);
                 if($registro['id'] != null) $_POST['alumno']['id'] = ++$registro['id'];
                 else $_POST['alumno']['id'] = "ID00000";
 
@@ -85,12 +86,8 @@ class controlador_inicio extends controlador
                 //Intentar guardar validando antes el modelo...
                 $bien= $modelo->guardar();
 
-
-
-
                 //Insertar primer nivel para alumno recien registrado
                 $modelo->sqlInsertarTestAlumno($modelo->id);
-
 
                 //Crear el directio de usuario
                 $ruta = './usuarios/'.$modelo->id;
@@ -98,7 +95,7 @@ class controlador_inicio extends controlador
                 if(!mkdir($ruta,0777,true)) $bien = $bien and false;
                 
                 //Copiar el avatar generico por defecto.
-                $copia = $ruta."/avatar.jpg";
+                $copia = $ruta."/avatar.png";
                 $default = "./images/default.png";
 
                 if (!copy($default,$copia)) $bien = $bien and false;
