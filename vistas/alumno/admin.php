@@ -76,10 +76,10 @@ vista::generarPieza( 'paginador', array( 'url'=>array('a'=>'alumno'), 'total'=>$
   <td class="cen">
 <?php //Generar el boton para CREAR.
 //if (tiene_permiso( 'clientes.crear')) {
-  echo '<div class="acciones">';
-  vista::generarPieza( 'boton_accion', array( 'texto'=>'Nuevo', 'icono'=>'crear.png',
-    'activo'=>true, 'url'=>array('a'=>'alumno.crear', 'p'=>$pagina)));
-  echo '</div>';
+  // echo '<div class="acciones">';
+  // vista::generarPieza( 'boton_accion', array( 'texto'=>'Nuevo', 'icono'=>'crear.png',
+  //   'activo'=>true, 'url'=>array('a'=>'alumno.crear', 'p'=>$pagina)));
+  // echo '</div>';
 //}//if
 ?>
   </td>
