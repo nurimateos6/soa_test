@@ -1,13 +1,19 @@
 	<div id="ini">
  	<div style="display: inline-block;">
- 	<?php vista::generarPieza( 'boton_accion', array( 'texto'=>'Iniciar Sesión',
+ 	<?php 
+ 		if ($usuario == null) 
+ 			vista::generarPieza( 'boton_accion', array( 'texto'=>'Iniciar Sesión',
     'activo'=>true, 'url'=>array('a'=>'inicio.login'), 
-    'submit'=>true)); 
+    'submit'=>true));
+ 		
+
+ 		 
     ?>
 </div>
 <div style="display: inline-block; margin:10px;">
     <?php
- 	vista::generarPieza( 'boton_accion', array( 'texto'=>'Registrarse',
+    if ($usuario == null) 
+ 			vista::generarPieza( 'boton_accion', array( 'texto'=>'Registrarse',
     'activo'=>true, 'url'=>array('a'=>'inicio.registro'), 
     'submit'=>true));?>
 </div><br/></div>

@@ -9,13 +9,12 @@
 ?>
 <tbody class="formulario">
 <?php if ($modelo !== null) { ?>
+
   <tr><th>ID.</th><td>
-    <input type="text" name="alumno[id]" id="id" maxlength="10" 
-           value="<?php echo html::encode( $modelo->id);?>"/>
+    <span> <?php echo html::encode( $modelo->id);?> </span>
   </td></tr>
   <tr><th>Nivel</th><td>
-    <input type="text" name="alumno[nivel]" id="nivel" maxlength="10" 
-           value="<?php echo html::encode( $modelo->nivel);?>"/>
+    <span> <?php echo html::encode( $modelo->nivel);?> </span>
   </td></tr>
   <tr><th>Nombre</th><td>
     <input type="text" name="alumno[nombre]" id="alumno_nombre" maxlength="30" 

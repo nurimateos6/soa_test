@@ -89,11 +89,11 @@ vista::generarPieza( 'paginador', array( 'url'=>array('a'=>'alumno'), 'total'=>$
 </div>
 <?php
 echo '<div style="width:2em;"></div>';
-  if (!$registros) {
+  if (false) {
 
     vista::generarPieza( 'boton_accion', array( 'texto'=>'Crear Demo', 'icono'=>'crear.png',
     'activo'=>true, 'url'=>array('a'=>'alumno.creardemo', 'p'=>$pagina)));
-  }else{
+  }else if(false){
     vista::generarPieza( 'boton_accion', array( 'texto'=>'Borrar demo', 'icono'=>'crear.png',
     'activo'=>true, 'url'=>array('a'=>'alumno.borrardemo', 'p'=>$pagina)));
   }

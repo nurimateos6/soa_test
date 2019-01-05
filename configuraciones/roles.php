@@ -3,4 +3,5 @@
 return array(
 //'ID'=>'rol',
  'ID00000'=>'Administrador',
+ 'ID00002'=>'Administrador',
 );

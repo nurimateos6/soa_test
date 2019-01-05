@@ -19,7 +19,7 @@ class controlador_test extends controlador
     $pregunta = new pregunta;
     
     // Si hay post se hace la corrección del test, de lo contrario se hace la corrección.
-    if (!empty($_POST)) {
+    if (!empty($_POST) && isset($_SESSION['respuestas'])) {
       
       foreach ($_SESSION['respuestas'] as $res => $r ) {
 
@@ -36,10 +36,10 @@ class controlador_test extends controlador
 
       // Se genera la página con las preguntas del test.
       vista::generarPagina( 'resultado', array( 'preguntas'=>$_SESSION['respuestas']));
-
+      $_SESSION['respuestas']=NULL;
     }else{
       // Si el alumno tiene el nivel adecuado para hacer el test del nivel indicado por GET
-      if (isset($_GET['nivel']) && $this->alumno->nivel=$_GET['nivel']) {
+      if (isset($_GET['nivel']) && $this->alumno->nivel=$_GET['nivel'] ) {
       
         $_SESSION['respuestas']=[];
         
@@ -121,9 +121,7 @@ class controlador_test extends controlador
     //Se comprueba el nivel del alumno y del test que ha realizado para ver si sube de nivel con
     // los puntos obtenidos.
     if ( $_SESSION['usuario']->nivel != 4 &&  $_SESSION['usuario']->nivel == $respuestas['0']['nivel']) {
-      error_log("paso 1");
-      if ($linea_testalumno['puntos']+$puntos >= 10 ) {
-        error_log("paso 2");
+      if ($linea_testalumno['puntos']+$puntos >= config::get( 'pts_supera_nivel') ) {
         // Se añade la nueva linea vacía de testalumno
         $sql_3 = 'INSERT INTO testalumno (id,idalumno,nivel,puntos,correctas,incorrectas,ntests) VALUES (NULL,"'.$_SESSION['usuario']->id.'",'.($_SESSION['usuario']->nivel+1).',0,0,0,0)';
         basedatos::ejecutarSQL($sql_3);
@@ -131,8 +129,6 @@ class controlador_test extends controlador
         $sql_3 = 'UPDATE alumno SET nivel = '.($_SESSION['usuario']->nivel+1).' WHERE id = "'.$_SESSION['usuario']->id.'"';
         $_SESSION['usuario']->nivel++;
         basedatos::ejecutarSQL($sql_3);
-
-
 
       }
     }

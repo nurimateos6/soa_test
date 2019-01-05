@@ -3,6 +3,9 @@
 //(c) DAW2 - EPSZ - Univ. Salamanca
 class aplicacion
 {
+
+  public static $modoPublico= false;
+  
   //-------------------------------------------------------------------------
   //Atributo con la ruta relativa a "index.php" donde se almacenan los 
   //controladores de la aplicacion.
@@ -12,8 +15,8 @@ class aplicacion
   //Atributos con la configuración del parametro de URL ($_GET) que indica 
   //el controlador/accion a ejecutar por la petición en curso, y el separador
   //utilizado entre controlador y accion dentro de el.
-  protected static $parametroAccion= 'a';
-  protected static $separadorAccion= '.';
+  public static $parametroAccion= 'a';
+  public static $separadorAccion= '.';
   
   //-------------------------------------------------------------------------
   //Atributo con el controlador actual que se debe ejecutar o ya se esta 
@@ -40,7 +43,8 @@ class aplicacion
     self::$id_controlador= (isset($ejecutar[0]) 
         ? trim($ejecutar[0]) 
         : config::get('aplicacion.controlador.defecto',''));
-
+//depurar( array( 'ejecutar', $ejecutar));
+//echo __METHOD__.'['.__LINE__.']'."<br/>";
     if (empty(self::$id_controlador)) {
       error_grave( 'No es posible ejecutar la petición,'
           .' no hay controlador predefinido.');
