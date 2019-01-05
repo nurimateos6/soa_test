@@ -145,15 +145,22 @@ class controlador_test extends controlador
 
     basedatos::ejecutarSQL( $sql_2 );
     ver($_SESSION['usuario']);
+    ver($linea_testalumno['puntos']+$puntos);
+    ver(($_SESSION['usuario']->nivel+1));
+            // $_SESSION['usuario']->nivel=1;
+
     //Se comprueba el nivel del alumno y del test que ha realizado para ver si sube de nivel con
     // los puntos obtenidos.
     if ( $_SESSION['usuario']->nivel != 4 &&  $_SESSION['usuario']->nivel == $respuestas['0']['nivel']) {
+      error_log("paso 1");
       if ($linea_testalumno['puntos']+$puntos >= 10 ) {
+        error_log("paso 2");
         // Se añade la nueva linea vacía de testalumno
         $sql_3 = 'INSERT INTO testalumno (id,idalumno,nivel,puntos,correctas,incorrectas,ntests) VALUES (NULL,'.$_SESSION['usuario']->id.','.($_SESSION['usuario']->nivel+1).',0,0,0,0)';
         basedatos::ejecutarSQL($sql_3);
         //Se actualiza el nivel del alumno
         $sql_3 = 'UPDATE alumno SET nivel = '.($_SESSION['usuario']->nivel+1).' WHERE id = '.$_SESSION['usuario']->id;
+        $_SESSION['usuario']->nivel++;
         basedatos::ejecutarSQL($sql_3);
 
 
