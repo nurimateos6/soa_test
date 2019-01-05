@@ -116,7 +116,6 @@ class controlador_alumno extends controlador
     //----------
     //Si hay modelo cargado, y datos del formulario, se intenta copiar/guardar.
     if (($modelo !== null) && isset($_POST['alumno'])) {
-      ver($_POST['alumno']);
       $_POST['alumno']['password']=md5($_POST['alumno']['password']);
       //Copiar los datos del formulario...
       $modelo->llenar( $_POST['alumno']);
