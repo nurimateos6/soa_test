@@ -10,6 +10,23 @@
 <div id="main">
 <div class="inner">
 <h1>Corrección</h1>
+<?php 
+  $img=array('nude','acero','verde','oro');
+  $nivel=$img[sesion::get('usuario')->nivel-1];
+  if ($sube) {
+    echo '<div style="display=inline-block" class="col-3">';
+    echo '<canvas style="width: 5em;display=inline-block" id="canvas"></canvas>';
+    echo '<h2 style="display=inline-block"> Enhorabuena has ascendido al nivel '.sesion::get('usuario')->nivel .'</h2>';
+    echo '</div>';
+
+  }
+
+?>
+  <script type="text/javascript">
+   
+
+  </script>
+
   <form method="post" action="?a=alumno.alumno"> 
 <?php 
     $i=0;// Variable para mostrar el número de pregunta dentro del test
@@ -59,6 +76,54 @@
   }
   // Se guarda el estado anterior
   this.previous = this.checked;
-});</script>
+});
+ var canWidth = 32;
+    var canHeight = 53;
+    var x = 0;
+    var y = 0;
+
+    var srcX;
+    var srcY;
+
+    var sheetWidth = 192;
+    var sheetHeight = 46;
+
+    var cols = 6;
+    var rows = 1;
+
+    var width = sheetWidth / cols;
+    var height = sheetHeight / rows;
+
+    var currentFrame = 0;
+
+    var character = new Image();
+    character.src = "images/niveles/<?= $nivel ?>.png";
+    
+    var canvas = document.getElementById('canvas');
+    canvas.width = canWidth;
+    canvas.height = canHeight;
+    
+    var ctx = canvas.getContext('2d');
+
+    function updateFrame(){
+      currentFrame = ++currentFrame % cols;
+      srcX = currentFrame * width;
+      srcY = 0;
+
+      ctx.clearRect(x,y,width,height);
+    }
+
+    function drawImage(){
+      updateFrame();
+      ctx.drawImage(character,srcX,srcY,width,height,x,y,width,height);
+    }
+
+    setInterval(function(){
+      drawImage();
+
+    },110);
+
+</script>
+
 
 

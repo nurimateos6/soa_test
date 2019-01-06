@@ -9,6 +9,6 @@ return array (
   'bd.charset' => 'utf8',
   'bd.depurar' => false,
   'pagina.lineas' => 10,
-  'pts_supera_nivel' => 20,
+  'pts_supera_nivel' => 5,
 );
 
