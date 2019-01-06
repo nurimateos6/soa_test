@@ -7,7 +7,6 @@
 		<link rel="icon" href="images/ico.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
 
 		<!-- HIGHLIGHT.JS -->
@@ -27,8 +26,13 @@
 
 	</head>
 
-
 	<body class="is-preload">
+		<noscript><!-- COMPRUEBA QUE JavaScript ESTÁ ACTIVADO -->
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+		<h1>ACTIVA JavaScript PARA QUE FUNCIONE</h1>
+		<h2>Para un funcionamiento adecuado se necesita JavaScipt, actívelo en las opciones de su navegador</h2>
+		</noscript>
+
 		<!-- CONTENEDOR -->
 		<div id="wrapper">
 			<!-- HEADER -->
