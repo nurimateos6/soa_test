@@ -18,6 +18,9 @@
     echo '<canvas style="width: 5em;display=inline-block" id="canvas"></canvas>';
     echo '<h2 style="display=inline-block"> Enhorabuena has ascendido al nivel '.sesion::get('usuario')->nivel .'</h2>';
     echo '</div>';
+    echo '<audio autoplay>
+          <source src="assets/Huha.mp3" type="audio/mpeg">
+          </audio>';
 
   }
 
