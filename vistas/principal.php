@@ -68,7 +68,7 @@
 		<footer id="footer">
 			<div class="inner">
 				<section>
-					<p ><a href="http://poliz.usal.es"></a>ESCUELA POLITÉCNICA SUPERIOR DE ZAMORA</br>
+					<p ><a href="http://poliz.usal.es">ESCUELA POLITÉCNICA SUPERIOR DE ZAMORA<br></a>
 					<i >Departamento de Informática y Automática</i></p>
 				</section>
 				<section>

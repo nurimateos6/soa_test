@@ -27,7 +27,7 @@
                 'style=background-color:green'
               :'style=background-color:red')
           :'style=background-color:orange') ?> 
-      class="preg"><?= $pregunta['pregunta'] ?></div>
+      class="preg"><?= htmlspecialchars($pregunta['pregunta']) ?></div>
     </div>
     <div class="respuestas">
 <?php
@@ -56,7 +56,7 @@
 
           // Se muestra la respuesta con los estilos pertinentes.
           echo '<input type="radio" id="'.$pregunta['id'].$valor.'" name="'.$pregunta['id'].'" value="'.$valor.'" '.$check.'>
-                 <label '.$estilo.' for="'.$pregunta['id'].$valor.'">'.$pregunta[$valor].'</label><br>';
+                 <label '.$estilo.' for="'.$pregunta['id'].$valor.'">'.htmlspecialchars($pregunta[$valor]).'</label><br>';
         }
 
 ?>

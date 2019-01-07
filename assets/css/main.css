@@ -41,6 +41,16 @@ body {
 ol, ul {
 	list-style: none;
 }
+#profe > li {
+	color:white;
+	font-weight: bold;
+	font-size: 2em;
+}
+#profe > li > a{
+	border:none;
+	color:white;
+
+}
 
 blockquote, q {
 	quotes: none;
@@ -3304,6 +3314,10 @@ input, select, textarea, input[type="date"] {
 			#footer > .inner section > * {
 				width: 100%;
 			}
+			#footer > .inner > section > p > a{
+				border: none;
+				color: white;
+			}
 
 		@media screen and (max-width: 1280px) {
 
@@ -3317,6 +3331,10 @@ input, select, textarea, input[type="date"] {
 
 				#footer > .inner section:nth-child(2) {
 					width: 50%;
+				}
+				#footer > .inner section:nth-child(3) {
+					margin-top: 1em;
+					width: 100%;
 				}
 
 				#footer > .inner section > * {
@@ -3333,6 +3351,10 @@ input, select, textarea, input[type="date"] {
 
 			#footer > .inner section:nth-child(2) {
 				width: 50%;
+			}
+			#footer > .inner section:nth-child(3) {
+				margin-top: 1em;
+				width: 100%;
 			}
 			#footer > .inner section > * {
 				width: 100%;
@@ -3368,6 +3390,10 @@ input, select, textarea, input[type="date"] {
 						width: 100%;
 						margin-left: 0;
 					}
+				#footer > .inner section:nth-child(3) {
+					margin-top: 1em;
+					width: 100%;
+				}
 					#footer > .inner section > * {
 					width: 100%;
 				}

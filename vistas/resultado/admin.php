@@ -35,7 +35,6 @@ foreach($registros as $indice => $registro) {
   echo '<td class="cen">'.html::encode( $modelo->correctas).'</td>';
   echo '<td class="cen">'.html::encode( $modelo->incorrectas).'</td>';
   echo '<td class="cen">'.sprintf( '%0.0f', $modelo->ntests).'</td>';
-  echo '<td class="cen">';
 
 }//foreach
 ?>
@@ -55,6 +54,6 @@ vista::generarPieza( 'paginador', array( 'url'=>array('a'=>'resultado'), 'total'
 </tr>
 </tfoot>
 </table>
-</div>
+</div></div></div>
 
 

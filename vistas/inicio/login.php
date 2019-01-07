@@ -25,7 +25,7 @@
 <fieldset>
   <label for="usr" style="display:inline-block;width:10em;">Usuario: </label>
   <input type="text" id="usuario_login" name="usuario[login]" size="10" 
-      value="" />
+      value="" autofocus />
   <br/>
   <label for="pwd" style="display:inline-block;width:10em;">Contraseña: </label>
   <input type="password" id="usuario_password" name="usuario[password]" size="10" value=""/>

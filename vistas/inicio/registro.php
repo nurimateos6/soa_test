@@ -19,7 +19,7 @@
               
 
        <input type="text" name="alumno[nombre]" id="alumno_nombre" maxlength="250" 
-           value="<?php echo html::encode( $modelo->nombre);?>" placeholder="Nombre"/>
+           value="<?php echo html::encode( $modelo->nombre);?>" placeholder="Nombre" autofocus/>
       <br/>
 
        

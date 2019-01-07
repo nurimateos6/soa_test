@@ -8,7 +8,7 @@
     <div class="cabecera">
       <!--Número de pregunta en el test y pregunta -->
       <div class="num"><?= $numero ?></div>
-      <div class="preg"><?= $pregunta['pregunta'] ?></div>
+      <div class="preg"><?= htmlspecialchars($pregunta['pregunta']) ?></div>
     </div>
 
     <!-- Las 4 posibles respuestas -->
@@ -18,7 +18,7 @@
         foreach ($_SESSION['orden_respuestas'] as $valor) {
 
           echo '<input type="radio" id="'.$pregunta['id'].$valor.'" name="'.$pregunta['id'].'" value="'.$valor.'">
-        <label for="'.$pregunta['id'].$valor.'">'.$pregunta[$valor].'</label><br>';
+        <label for="'.$pregunta['id'].$valor.'">'.htmlspecialchars($pregunta[$valor]).'</label><br>';
         }
 
         ?>
