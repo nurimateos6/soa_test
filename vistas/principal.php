@@ -65,22 +65,18 @@
 
 
 		<!-- PIE DE PÁGINA -->
-		<footer id="footer" style="margin-top: 0px">
+		<footer id="footer">
 			<div class="inner">
-				<section style="display:inline-block; width: 100%">
-					<p><a href="http://poliz.usal.es"><span style="width: 10em" class="image right"><img src="images/poli.png" alt="" /></span></a>ESCUELA POLITÉCNICA SUPERIOR DE ZAMORA</br>
-					<i>Departamento de Informática y Automática</i></p>
-				</section>
-
 				<section>
-					<h2>github</h2>
-					<ul class="icons">
-						
-						<li><a href="https://github.com/rubenperacuni/test" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
-					
-					</ul>
+					<p ><a href="http://poliz.usal.es"></a>ESCUELA POLITÉCNICA SUPERIOR DE ZAMORA</br>
+					<i >Departamento de Informática y Automática</i></p>
 				</section>
-				
+				<section>
+					<img src="images/poli.png" alt="" />
+				</section>
+				<section>
+				<a href="https://github.com/rubenperacuni/test" class="icon style2 fa-github"><span class="label">GitHub</span></a>
+				</section>
 			</div>
 		</footer>
 		</div><!-- FIN CONTENEDOR -->
