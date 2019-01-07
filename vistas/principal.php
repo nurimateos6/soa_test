@@ -2,7 +2,6 @@
 	<head>
 		<title>Test SOA</title>
 		<meta charset="utf-8" />
-		<meta charset="utf-8" />
 		<link rel="mask-icon" href="images/icon.svg" color="#293dff">
 		<link rel="icon" href="images/ico.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
